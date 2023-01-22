@@ -1,0 +1,35 @@
+ion-segment ion-segment-button {
+    float:left;
+    --min-height: 50px;
+    --max-height: 50px;
+}
+ion-segment {
+    min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width:100px;
+}
+ion-segment ion-segment-button {
+	float: left;
+	
+	max-height: 50px;
+	position: relative;
+display:block;
+  max-width:100px;
+}
+.mycontent {
+    float:left;
+}
+.mesmenus {
+    float:left;
+    width:calc(100% - 100px);
+}
+ion-card-header.ios {
+  display: flex;
+  flex-flow: column-reverse;
+}
+ion-card {
+    max-width:100px;
+    float:left;
+}

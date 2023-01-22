@@ -1,0 +1,18 @@
+<ion-item ngFor="let burger of burgers; index as i">
+      
+
+  <div>
+            <img class="mysaveursmenu" src="{{burger.image}}"/>
+
+    <h2></h2>
+    <p>{{burger.name}}</p>
+  </div>
+
+  <p>
+    {{burger.description}}
+  </p>
+
+  <button class="largebtn">Plus d'information</button>
+
+
+</ion-item>

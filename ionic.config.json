@@ -1,5 +1,7 @@
 {
   "name": "mcdo",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

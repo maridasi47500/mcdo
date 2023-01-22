@@ -6,11 +6,20 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
+// plugins
+import { SQLite } from '@ionic-native/sqlite/ngx';
+import { HttpClientModule } from '@angular/common/http';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { ModalPageModule } from './hamburger/modal.hamburger.module';  
+import { CommonModule } from "@angular/common";
+import { HamburgerPageModule } from  './hamburger/hamburger.module';  
 @NgModule({
+    
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  imports: [HamburgerPageModule, ModalPageModule, CommonModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  providers: [  SQLite,
+    SQLitePorter,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

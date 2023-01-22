@@ -1,0 +1,24 @@
+<ion-content class="my ionic class">
+      <ion-header>
+          <h2>{{foo}}</h2>
+          
+      </ion-header>
+   
+        <ion-card  (click)="choisiritem($event)" *ngFor="let item of items$ | async">
+         <div>{{item.id}}</div>
+             <img data-id="{{item.id}}" src="{{item.image}}" width="40" height="40"/> {{item.name}}
+             
+             <div *ngIf="foo === 'sauce' || foo === 'extra sauce'">
+                 <ion-icon name="remove-circle" (click)="decrement($event,item.id,(foo === 'sauce' ? 2 : 0))">></ion-icon>
+{{currentNumber[item.id]}}
+<ion-icon name="add-circle" (click)="increment($event,item.id,(foo === 'sauce' ? 2 : 0))"></ion-icon>
+
+             </div>
+          </ion-card>
+    <ion-footer (click)='dismiss()'>
+        ok
+    </ion-footer>
+</ion-content>      
+
+
+

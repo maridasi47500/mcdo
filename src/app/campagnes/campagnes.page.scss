@@ -1,0 +1,67 @@
+div.background{
+    background: url(/assets/images/Hamburgerblack.jpg) 0 0/100% 100% no-repeat;
+      --min-height: 140px !important;  
+      color: #fff;
+      font-weight:900;
+      font-size:30px;
+      text-align:center;
+}
+div.background > * {
+    
+}
+div.background .title{
+    
+      font-size:40px;
+     
+}
+div.background .subtitle{
+    
+      font-size:25px;
+     
+}
+
+
+div {text-align:center;}
+div {
+    width:100%;}
+ion-footer {
+    background-color: #6c6c6c;
+}
+div.background {
+  .subtitle {
+   
+    padding: 1px 8px;
+    display: table;
+  }
+}
+.myitem {
+    max-width:48%;
+
+    max-width: 48%;
+    display: inline-block;
+    /* float: left; */
+    position: relative;
+    min-width: 48%;
+
+}
+.myitem img {
+    width:40%;
+    float:left;
+    height:200px;
+    margin-right:20px;
+}
+
+.mycontainer {
+    text-align: left;
+}
+.myitem h2, .myitem ion-label {
+    
+    font-weight:900;
+    font-size:30px;
+}
+.myitem ion-button.info {
+    --background:#ffcc00;
+}
+.myitem ion-button.order {
+    --background:#d1000d;
+}

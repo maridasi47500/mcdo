@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
+  },
+  {
+    path: 'saveurs',
+    loadChildren: () => import('./saveurs/saveurs.module').then( m => m.SaveursPageModule)
   }
 ];
 

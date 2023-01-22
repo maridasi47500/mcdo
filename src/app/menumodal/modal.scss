@@ -1,0 +1,38 @@
+ion-modal#ion-overlay-1 {
+    top: 70vh;
+}
+@media only screen 
+    and (min-device-width : 375px) // or 213.4375em
+    and (max-device-width : 667px) // or 41.6875em
+    and (width : 375px) // or 23.4375em
+    and (height : 559px) // or 34.9375em
+    and (orientation : portrait) 
+    and (color : 8)
+    and (device-aspect-ratio : 375/667)
+    and (aspect-ratio : 375/559)
+    and (device-pixel-ratio : 2)
+    and (-webkit-min-device-pixel-ratio : 2)
+{ ion-modal#ion-overlay-1 {
+    top: 70vh;
+    --ion-background-color: red;
+  
+  }
+  .md.modal-default.hydrated.show-modal {
+    max-width:200px;
+    max-height:200px;
+}
+}
+
+.md.modal-default.hydrated.show-modal {
+    max-width:200px;
+    max-height:200px;
+}
+
+ion-backdrop {
+	max-width: 200px;
+	max-height: 200px;
+}
+.show-modal {
+    max-width:200px;
+    max-height:200px;
+}

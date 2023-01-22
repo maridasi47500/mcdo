@@ -1,3 +1,14 @@
+$black: #fff;
+$blanc:white;
+.toolbar-background {
+    background: var(matoolbar);
+}
+.toolbar-title-default.ios.in-toolbar.hydrated {
+  --background: black;
+    --color: white;
+}
+
+$mycolor: red;
 #container {
   text-align: center;
 
@@ -12,20 +23,7 @@
   font-size: 20px;
   line-height: 26px;
 }
-.menu.clearfix li ul {
-    display:none;
-    
-}
-body {
-    margin-top:0px;
-}
-.menu.clearfix li {
-    float:left;
-    
-}
-.menu.clearfix {
-    float:left;
-}
+
 #container p {
   font-size: 16px;
   line-height: 22px;
@@ -38,3 +36,33 @@ body {
 #container a {
   text-decoration: none;
 }
+:root {
+--colorcontainer: #000;
+}
+
+    
+    .ios.modal-default.hydrated.show-modal {
+	
+	top: 70%;
+	position: absolute;
+	width: 100%;
+
+    }
+  
+
+    .inner-scroll.scroll-y {
+        background-color: $mycolor;
+    }
+    .inner-scroll.scroll-y.overscroll{
+        background: $mycolor;
+    }
+
+  .inner-scroll.scroll-y.overscroll{
+        background: $mycolor;
+    }
+    .ion-padding.offrespeciale.ios.overscroll.content-ltr.hydrated {
+            --ion-background-color: #ff1a1a;
+            text-align:center;
+            vertical-align:middle;
+    }
+    
