@@ -9,6 +9,25 @@ CREATE TABLE IF NOT EXISTS items(
 cat_id INTEGER
 );
 
+CREATE TABLE IF NOT EXISTS commandes(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+user_id integer,
+    boisson1_id integer, 
+    boisson2_id integer, 
+    pdt_id integer,
+    promodessert_id integer,
+    promotion_id integer,
+    promotionpdt_id integer
+cat_id INTEGER
+);
+CREATE TABLE IF NOT EXISTS commandehaveextrasauces (
+commande_id integer,
+item_id integer
+);
+CREATE TABLE IF NOT EXISTS commandehavesauces (
+commande_id integer,
+item_id integer
+);
 CREATE TABLE IF NOT EXISTS flavors(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT, 
@@ -90,9 +109,9 @@ INSERT INTO menucats(id, name, url,image,description) VALUES (7, 'Collations', '
 INSERT INTO menucats(id, name, url,image,description) VALUES (8, 'Sauces supplémentaires', 'sauces',"/assets/images/happymealcat.jpg","");
 
 INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (1, 'Menu BigMaç','160.00','2 Big Mac® + 4 morceaux de poulet McNuggets + 1 pomme de terre moyenne + 1 litre de boisson','happymeal', '/assets/images/happymeal.jpg',1,'restaurant',0);
-INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (2, 'Menu de restes de poulet croustillant','110.00','4 morceaux de poulet croustillant extra burger + 1 morceau de grosse pomme de terre + 2 morceaux de boisson de taille moyenne','happymeal', '/assets/images/happymeal.jpg',2,'service de forfait',1);
+INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (2, 'Menu de restes de poulet croustillant','110.00','4 morceaux de poulet croustillant extra burger + 1 morceau de grosse pomme de terre + 2 morceaux de boisson de taille moyenne','happymeal1', '/assets/images/happymeal.jpg',2,'service de forfait',1);
 INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (3, 'Menu BigMaç','160.00','2 Big Mac® + 4 morceaux de poulet McNuggets + 1 pomme de terre moyenne + 1 litre de boisson','happymeal', '/assets/images/happymeal.jpg',1,'restaurant',0);
-INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (4, 'Menu de restes de poulet croustillant','110.00','4 morceaux de poulet croustillant extra burger + 1 morceau de grosse pomme de terre + 2 morceaux de boisson de taille moyenne','happymeal', '/assets/images/happymeal.jpg',2,'restaurant',0);
+INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (4, 'Menu de restes de poulet croustillant','110.00','4 morceaux de poulet croustillant extra burger + 1 morceau de grosse pomme de terre + 2 morceaux de boisson de taille moyenne','happymeal2', '/assets/images/happymeal.jpg',2,'restaurant',0);
 
 INSERT INTO menuitems(name,prix,type,image) VALUES ("coca", 30.00,"boisson","");
 INSERT INTO menuitems(name,prix,type,image) VALUES ("sprite", 30.00,"boisson","");

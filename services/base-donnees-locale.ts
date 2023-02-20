@@ -58,16 +58,26 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
         promotionpdt$ = this.promotionpdt.asObservable();
              private manyitems = new BehaviorSubject(false);
         manyitems$ = this.manyitems.asObservable();
-        
+          private finditem = new BehaviorSubject(new Menuitem);
+        finditemFound$ = this.finditem.asObservable();
+
   private burger = new BehaviorSubject(new Item);
         burgerFound$ = this.burger.asObservable();
+  private prixitem = new BehaviorSubject(new Array);
+        prixitemsnb$ = this.prixitem.asObservable();
 
 
   private itemsCatList = new BehaviorSubject(this.arr);
   
       itemListFilled$ = this.itemsCatList.asObservable();
       
-      
+        private mylistsauce = new BehaviorSubject(this.arr);
+  
+      mylistsauceFilled$ = this.mylistsauce.asObservable();
+        private mylistextrasauce = new BehaviorSubject(this.arr);
+  
+      mylistextrasauceFilled$ = this.mylistextrasauce.asObservable();
+
       
   private menucat = new BehaviorSubject(new Menucat);
         menucatFound$ = this.menucat.asObservable();
@@ -118,6 +128,161 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
     observer();
     return this.observable;
   }
+    prix1item(typename,value,myid){
+const observer = async() => {
+         
+          
+          var x = await (this.storage.executeSql("select * from menuitems where type = ? and id = ?", [typename, value])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        let items=[];
+ if (res.rows.length > 0) {
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      for (var i = 0; i < res.rows.length; i++) {
+          console.log("prix:", res.rows.item(0).prix)
+          console.log("ID:", res.rows.item(0).id)
+          console.log("nombre:",1)
+          console.log("prix < nombre:",res.rows.item(0).prix)
+      items.push(res.rows.item(0).prix)
+      }
+         const initialValue = 0;
+const sumWithInitial = items.reduce(
+  (accumulator, currentValue) => accumulator + currentValue,
+  initialValue
+);
+console.log(sumWithInitial+":: sum")
+      this.prixitem.next([typename,sumWithInitial,myid]);
+ }
+    }));
+}
+    observer()
+    return this.prixitemsnb$;
+}
+ listsauces(array){
+const observer = async() => {
+            var myids=array.map(x=>x[0]);
+            var mynbs=array.map(x=>Number(x[1]))
+            //const flipped=  array.map(([key, value]) => [value, key]);
+            var mynb={};
+            for (var z = 0; z < array.length ;z++){
+             mynb[array[z][0]] = array[z][1];   
+            }
+            console.log(mynb,"my array")
+            var paspremier=false;
+            var myidssql="";
+            for (var i = 0; i < myids.length; i++) {
+                if (paspremier) {
+                    myidssql+=","
+                }
+                myidssql+="?";
+                paspremier=true;
+            }
+          var x = await (this.storage.executeSql("select * from menuitems where id in ("+myidssql+")", myids)
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        let items=[];
+ if (res.rows.length > 0) {
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      for (var i = 0; i < res.rows.length; i++) {
+          console.log("prix:", res.rows.item(0).prix)
+          console.log("ID:", res.rows.item(0).id)
+          console.log("nombre:",mynb[res.rows.item(0).id])
+          console.log("prix < nombre:",res.rows.item(0).prix*mynb[res.rows.item(0).id])
+      items.push({name:res.rows.item(0).name,nb: mynb[res.rows.item(0).id]})
+      }
+        
+      this.mylistsauce.next(items);
+ }
+    }));
+}
+    observer()
+    return this.prixitemsnb$;
+}
+ listextrasauces(array){
+const observer = async() => {
+            var myids=array.map(x=>x[0]);
+            var mynbs=array.map(x=>Number(x[1]))
+            //const flipped=  array.map(([key, value]) => [value, key]);
+            var mynb={};
+            for (var z = 0; z < array.length ;z++){
+             mynb[array[z][0]] = array[z][1];   
+            }
+            console.log(mynb,"my array")
+            var paspremier=false;
+            var myidssql="";
+            for (var i = 0; i < myids.length; i++) {
+                if (paspremier) {
+                    myidssql+=","
+                }
+                myidssql+="?";
+                paspremier=true;
+            }
+          var x = await (this.storage.executeSql("select * from menuitems where id in ("+myidssql+")", myids)
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        let items=[];
+ if (res.rows.length > 0) {
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      for (var i = 0; i < res.rows.length; i++) {
+          console.log("prix:", res.rows.item(0).prix)
+          console.log("ID:", res.rows.item(0).id)
+          console.log("nombre:",mynb[res.rows.item(0).id])
+          console.log("prix < nombre:",res.rows.item(0).prix*mynb[res.rows.item(0).id])
+      items.push({name:res.rows.item(0).name,nb: mynb[res.rows.item(0).id]})
+      }
+        
+      this.mylistextrasauce.next(items);
+ }
+    }));
+}
+    observer()
+    return this.prixitemsnb$;
+}
+  prixitemsnb(typename,array,myid){
+const observer = async() => {
+            var myids=array.map(x=>x[0]);
+            var mynbs=array.map(x=>Number(x[1]))
+            //const flipped=  array.map(([key, value]) => [value, key]);
+            var mynb={};
+            for (var z = 0; z < array.length ;z++){
+             mynb[array[z][0]] = array[z][1];   
+            }
+            console.log(mynb,"my array")
+            var paspremier=false;
+            var myidssql="";
+            for (var i = 0; i < myids.length; i++) {
+                if (paspremier) {
+                    myidssql+=","
+                }
+                myidssql+="?";
+                paspremier=true;
+            }
+          var x = await (this.storage.executeSql("select * from menuitems where type = ? and id in ("+myidssql+")", [typename].concat(myids))
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        let items=[];
+ if (res.rows.length > 0) {
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      for (var i = 0; i < res.rows.length; i++) {
+          console.log("prix:", res.rows.item(0).prix)
+          console.log("ID:", res.rows.item(0).id)
+          console.log("nombre:",mynb[res.rows.item(0).id])
+          console.log("prix < nombre:",res.rows.item(0).prix*mynb[res.rows.item(0).id])
+      items.push(res.rows.item(0).prix*mynb[res.rows.item(0).id])
+      }
+         const initialValue = 0;
+const sumWithInitial = items.reduce(
+  (accumulator, currentValue) => accumulator + currentValue,
+  initialValue
+);
+console.log(sumWithInitial+":: sum")
+      this.prixitem.next([typename,sumWithInitial,myid]);
+ }
+    }));
+}
+    observer()
+    return this.prixitemsnb$;
+}
   getItemsByTypeName(typename){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", [typename])
@@ -141,6 +306,58 @@ const observer = async() => {
 }
     observer()
     return this.choisirItems$;
+}
+getsauce(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.sauce.next(items);
+    }));
+}
+    observer()
+    return this.sauce$;
+}
+getmenu(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menus where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menu;
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items={ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            description: res.rows.item(i).image,
+            url: res.rows.item(i).image,
+            cat_id: res.rows.item(i).image,
+            myorder: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           };
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.menu.next(items);
+    }));
+}
+    observer()
+    return this.menuFound$;
 }
 getsauces(){
 const observer = async() => {
@@ -166,6 +383,30 @@ const observer = async() => {
     observer()
     return this.sauce$;
 }
+getextrasauce(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.extrasauce.next(items);
+    }));
+}
+    observer()
+    return this.extrasauce$;
+}
 getextrasauces(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["extra sauces"])
@@ -189,6 +430,30 @@ const observer = async() => {
 }
     observer()
     return this.extrasauce$;
+}
+getaccompagnement(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.accompagnement.next(items);
+    }));
+}
+    observer()
+    return this.accompagnement$;
 }
 getaccompagnements(){
 const observer = async() => {
@@ -214,6 +479,30 @@ const observer = async() => {
     observer()
     return this.accompagnement$;
 }
+getpromotion(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.promotion.next(items);
+    }));
+}
+    observer()
+    return this.promotion$;
+}
 getpromotions(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["promotion"])
@@ -237,6 +526,30 @@ const observer = async() => {
 }
     observer()
     return this.promotion$;
+}
+getpromotiondessert(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.promotiondessert.next(items);
+    }));
+}
+    observer()
+    return this.promotiondessert$;
 }
 getpromotiondesserts(){
 const observer = async() => {
@@ -262,6 +575,31 @@ const observer = async() => {
     observer()
     return this.promotiondessert$;
 }
+getboisson(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.boisson.next(items);
+    }));
+}
+    observer()
+    return this.boissons$;
+}
+
 getboissons(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["boisson"])
@@ -286,7 +624,30 @@ const observer = async() => {
     observer()
     return this.boissons$;
 }
-
+get1promotionpdt(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.promotionpdt.next(items);
+    }));
+}
+    observer()
+    return this.promotionpdt$;
+}
 getpromotionpdt(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["promotion pommes de terre"])
@@ -397,7 +758,7 @@ this.createDatabaseObject()
     
   // Get list
   getItems(){
-    return this.storage.executeSql('SELECT * FROM items', []).then(res => {
+    return this.storage.executeSql('SELECT * FROM menuitems', []).then(res => {
       let items: Item[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -518,18 +879,24 @@ this.getItems();
 
  
   // Get single object
-  getItem(id): Promise<Item> {
-    return this.storage.executeSql('SELECT * FROM items WHERE id = ?', [id]).then(res => { 
-      return {
+  getItem(id): Observable<Menuitem> {
+ const observer = async() => {
+       
+          var x = await (this.storage.executeSql('SELECT * FROM items WHERE id = ?', [id]).then(res => { 
+    
+
+      this.finditem.next({
         id: res.rows.item(0).id,
             name: res.rows.item(0).name,  
+            type: res.rows.item(0).type,  
             image: res.rows.item(0).image,
-            cat_id: res.rows.item(0).cat_id,
-            url: res.rows.item(0).url,
-            description: res.rows.item(0).description
-      }
-    });
+            prix: res.rows.item(0).prix
+      })
+    }));
   }
+  observer();
+  return this.finditemFound$;
+   }
   
   
    findMenuById(id): Observable<Menu> {

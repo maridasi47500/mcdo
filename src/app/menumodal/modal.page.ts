@@ -7,17 +7,13 @@ import { Item } from '../../../services/item';
 import { Bicycle } from '../services/bicycle';
 import { Flavor } from '../../../services/flavor';
 import { Menuitem } from '../services/menuitem';
+import { MenucommandePage } from '../menucommande/menucommande.page';
 import { IonModal,IonItem,IonCard } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { AnimationController,ModalController } from '@ionic/angular';
 
 
 import { MenuController } from '@ionic/angular';
-
-
-
-
-
 
 @Component({  
   selector: 'app-modal-menu',  
@@ -26,7 +22,7 @@ import { MenuController } from '@ionic/angular';
 })  
 export class ModalPage implements OnInit,OnDestroy {  
   
-  constructor(private modalCtrl: ModalController, private db: BaseDatosLocalProvider,private route : ActivatedRoute, private router : Router) {}  
+  constructor(private mypage: MenucommandePage, private modalCtrl: ModalController, private db: BaseDatosLocalProvider,private route : ActivatedRoute, private router : Router) {}  
   
   foo;
   bar;
@@ -66,13 +62,36 @@ manyitems;
 @ViewChild(IonModal) modal: IonModal;
 @ViewChild(IonCard) card: IonCard;
 ngOnDestroy(){
-    this._dbobservable.unsubscribe();
-    this._nbobservable.unsubscribe();
+    
+    var y = document.querySelector<HTMLInputElement>("[id="+this.myid+"]")!;
+    var mytype=y.dataset.myclass;
+    var myid=y.id;
+    //this._dbobservable.unsubscribe();
+    //this._nbobservable.unsubscribe();
 
-    this._burgersobservable.unsubscribe();
+    //this._burgersobservable.unsubscribe();
         var str="";
+        var myval;
     var val="[";
     var paspremier = false;
+    //alert(JSON.stringify(this.currentNumber));
+     try {
+         
+         console.log("this.foo = "+this.foo)
+          if ((this.foo === 'sauce' || this.foo === 'extra sauce')) {
+              console.log("ok icisiràfudfpojg")
+              try{
+             let re = /\'/gi;
+             var strvalue=document.querySelector<HTMLInputElement>("[data-myclass='"+this.foo+"']")!.value.replace(re,"");
+             //alert(strvalue);
+             console.log('bug')
+          myval = JSON.parse(strvalue) 
+          console.log("value :: "+JSON.stringify(myval))
+          //alert("ok ok ok")
+          //alert(JSON.stringify(this.currentNumber))
+              }catch(e){
+              console.log(JSON.stringify(e),"oçegfoprsigoooli")
+              }
   for (const property in this.currentNumber) {
       if (this.currentNumber[property] > 0) {
           if (paspremier) {
@@ -86,36 +105,89 @@ ngOnDestroy(){
       }
 }
 val+="]";
-var y = document.querySelector<HTMLInputElement>("[data-myclass='"+this.foo+"']")!;
+if (val !== "[]") {
+
 y.innerHTML +="<option value=\""+val+"\">"+str+"</option>";
 //alert(val);
 y.value=val;
 }
-  ngOnInit() {
-      var myval;
-      this.myv={};
+console.log(y.value)
+
+          }
+ //alert(JSON.stringify(this.currentNumber));
+    }catch(e) {
+        console.log("erreur shbsrth")
+        console.log(JSON.stringify(e));
+    }
+    
+    
+    
+     var myval;
+        console.log("dsmlfigekvto..........irsthylmrzpkyoz------")
+        console.log("ok field changed");
+      
       //alert(this.foo);
          try {
              let re = /\'/gi;
-             var strvalue=document.querySelector<HTMLInputElement>("[data-myclass='"+this.foo+"']")!.value.replace(re,"");
+             var strvalue=y.value.replace(re,"");
              //alert(strvalue);
           myval = JSON.parse(strvalue)  
           //alert(JSON.stringify(myval));
           //alert(myval)
           //alert(typeof(myval)) 
          } catch(e) {
+             console.log(JSON.stringify(e));
+             
+         }
+          
+         if (typeof(myval) === "number") {
+             
+             //this.mypage.sommedesprix[mytype] = y.value;
+             this.mypage.db.prix1item(mytype,myval,myid)
+         } else {
+             this.mypage.db.prixitemsnb(mytype,myval,myid);
+             
+            
+         }
+          console.log("ok")
+           
+    
+    
+}
+  ngOnInit() {
+      var myval;
+      this.myv={};
+      //alert(this.bar);
+         try {
+             let re = /\'/gi;
+             var strvalue=document.querySelector<HTMLInputElement>("[data-myclass='"+this.foo+"']")!.value.replace(re,"");
+             //alert(strvalue);
+          myval = JSON.parse(strvalue)  
+          console.log(JSON.stringify(myval));
+          
+          //alert(typeof(myval)) 
+         } catch(e) {
              //alert(JSON.stringify(e));
              myval=[];
          }
-         if (typeof(myval) !== "object") {
-             myval=[];
+         try {
+             console.log(Number(myval))
+         if (!isNaN(myval)) {
+            } 
+         } catch(e) {
+            console.log(e, "value field is not number")
          }
+            
+            
+             if (isNaN(myval)) {
+        
          //alert(JSON.stringify(myval.values));
          for (var y = 0;y < myval.length ; y++) {
              this.myv[myval[y][0]] = myval[y][1];
          }
          //alert(JSON.stringify(this.myv))
     console.log(`${this.foo} ${this.bar}`);
+         }
              this._nbobservable = this.db.manyitems$.subscribe(item => {
            console.log(item)
            this.manyitems = of(item);
@@ -154,7 +226,10 @@ y.value=val;
 
   }
   choisiritem($evt) {
+
       if (!(this.foo === 'sauce' || this.foo === 'extra sauce')) {
+                console.log(this.foo)
+      console.log("idf: "+$evt.target.children[0].innerHTML)
       var x = document.getElementsByTagName('select'),y=document.getElementById("clickeditem"), myel;
       for (var i = 0;i<x.length;i++) {
           myel = x[i];
@@ -169,6 +244,8 @@ y.value=val;
           }
           
       }
+      //document.querySelector<HTMLInputElement>("[data-myclass='"+this.foo+"']")!.value = $evt.target.children[0].innerHTML;
+
       }
   
   }

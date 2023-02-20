@@ -8,16 +8,22 @@ import { MenucommandePageRoutingModule } from './menucommande-routing.module';
 
 import { MenucommandePage } from './menucommande.page';
 import { ModalPage } from '../menumodal/modal.page';
+import { PanierPage } from '../menupanier/modal.page';
 
+import { FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
 
+import { RouterOutlet, ActivationStart } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MenucommandePageRoutingModule
+    MenucommandePageRoutingModule,
+    ReactiveFormsModule
+    
   ],
-  declarations: [MenucommandePage,ModalPage]
+  providers: [MenucommandePage,RouterOutlet],
+  declarations: [MenucommandePage,ModalPage,PanierPage]
 })
 export class MenucommandePageModule {}

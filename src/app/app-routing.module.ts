@@ -16,7 +16,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-
+  {
+    path: 'panierv2',
+    loadChildren: () => import('./basketv2/basketv2.module').then( m => m.Basketv2PageModule)
+  },
   {
     path: 'mcdonalds-delicacies/:flavor',
     component: HamburgerPage
@@ -129,6 +132,15 @@ const routes: Routes = [
   {
     path: 'menucommande',
     loadChildren: () => import('./menucommande/menucommande.module').then( m => m.MenucommandePageModule)
+  },
+
+  {
+    path: 'mcdonaldsta-life',
+    loadChildren: () => import('./macdonalds-life/macdonalds-life.module').then( m => m.MacdonaldsLifePageModule)
+  },
+  {
+    path: 'mcdonaldsta-career',
+    loadChildren: () => import('./macdonalds-career/macdonalds-career.module').then( m => m.MacdonaldsCareerPageModule)
   }
 ];
 

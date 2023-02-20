@@ -118,10 +118,10 @@
             <a href="/mcdonalds-delicacies/breakfasts" target="_self">Petits déjeuners</a>
         </li>
         <li>
-            <a href="/mcdonalds-flavors/drinks" target="_self">Boissons</a>
+            <a href="/mcdonalds-delicacies/drinks" target="_self">Boissons</a>
         </li>
         <li>
-            <a href="/mcdonalds-flavors/sauces" target="_self">Sauces</a>
+            <a href="/mcdonalds-delicacies/sauces" target="_self">Sauces</a>
         </li>
 
                 </ul>
@@ -202,7 +202,7 @@
                             <div class="recherche">
                                 <form method="post" action="/search">
                                     <input name="__RequestVerificationToken" type="hidden" value="4FnSwheRM7VzVLQt4M-RrCIa1Up2rfGKSGM9r0k8SsndwlSBrCCxfk2GzMLjxfS13sWxBYyMCxKLMUHkqMh1TXqQj9k_4yp8s"/>
-                                    <input type="text" class="searchInput" name="searchtext" placeholder="SAISISSEZ LE MOT QUE VOUS SOUHAITEZ RECHERCHER">
+                                    <input type="text" class="searchInput" name="searchtext" placeholder="SAISISSEZ LE MOT QUE VOUS SOUHAITEZ RECHERCHER"/>
                                 </form>
                             </div>
                         </li>
@@ -252,98 +252,110 @@
 </ion-card>
           
           <ion-card color="primary" class="monform">
-              <div>
+              <form id="monformulaire" [formGroup]="ionicForm">
+                  <div class="champ champ-myid1">
+                      <input formControlName="myid1" type="hidden" value="{{menuid}}"/>
+                  </div>
+              <div class="champ champ-boisson1">
                   <label class="label">
                   1. Boisson
               </label>
-                  <select  id="boisson1" (mousedown)="myselect($event)" data-myclass="boisson" data-centermodal="">
-                         <option *ngFor="let item of boissons$ | async" value="{{item.id}}">{{item.name}}</option>
+                  <select formControlName="boisson1" id="boisson1" (mousedown)="myselect($event)" data-myclass="boisson" data-centermodal="">
+                       <option></option>   <option *ngFor="let item of boissons$ | async" value="{{item.id}}">{{item.name}}</option>
                       
                   </select>
               </div> 
-                <div>
+                <div class="champ champ-boisson2">
                   <label class="label">
                   2. Boisson
               </label>
                     
-                     <select  id="boisson2" (mousedown)="myselect($event)" data-myclass="boisson" data-centermodal="">                       
-                         <option *ngFor="let item of boissons$ | async" value="{{item.id}}">{{item.name}}</option>
+                     <select formControlName="boisson2" name="boisson2" id="boisson2" (mousedown)="myselect($event)" data-myclass="boisson" data-centermodal="">                       
+                        <option></option>  <option *ngFor="let item of boissons$ | async" value="{{item.id}}">{{item.name}}</option>
 </select>
               </div> 
        
-               <div>
+               <div class="champ champ-accomp">
                   <label class="label">
                   Accompagnement
               </label>
-                   <select  id="accomp" (mousedown)="myselect($event)" data-myclass="accompagnement" data-centermodal="">
-                       <option *ngFor="let item of accompagnement$ | async" value="{{item.id}}">{{item.name}}</option>
+                   <select formControlName="accomp" name="accomp" id="accomp" (mousedown)="myselect($event)" data-myclass="accompagnement" data-centermodal="">
+                        <option></option><option *ngFor="let item of accompagnement$ | async" value="{{item.id}}">{{item.name}}</option>
                        
                    </select>
               </div>
-               <div>
+               <div class="champ champ-sauce">
                   <label class="label">
                   Sauce
               </label>
-                   <select id="sauce"  (mousedown)="myselect($event)" data-myclass="sauce" data-centermodal="">
-                       <option *ngFor="let item of sauce$ | async" value="{{item.id}}">{{item.name}}</option>
+                   <select formControlName="sauce" name="sauce" id="sauce"  (mousedown)="myselect($event)" data-myclass="sauce" data-centermodal="">
+                       <option></option> <option *ngFor="let item of sauce$ | async" value="{{item.id}}">{{item.name}}</option>
                        
                    </select>
               </div> 
-               <div>
+               <div class="champ champ-promo">
                   <label class="label">
                   Promotion
               </label>
-                   <select id="promo"  (mousedown)="myselect($event)" data-myclass="promotion" data-centermodal="">
-                       <option *ngFor="let item of promotion$ | async" value="{{item.id}}">{{item.name}}</option>
+                   <select name="promo" id="promo"  (mousedown)="myselect($event)" data-myclass="promotion" data-centermodal="">
+                        <option></option><option *ngFor="let item of promotion$ | async" value="{{item.id}}">{{item.name}}</option>
                        
                    </select>
               </div> 
-               <div>
+               <div class="champ champ-promodessert">
                   <label class="label">
                   Promotion dessert
               </label>
-                   <select id="promodessert" (mousedown)="myselect($event)" data-myclass="promotion dessert" data-centermodal="">
+                   <select formControlName="promodessert" name="promodessert" id="promodessert" (mousedown)="myselect($event)" data-myclass="promotion dessert" data-centermodal="">
+ <option></option>
                        <option *ngFor="let item of promotiondessert$ | async" value="{{item.id}}">{{item.name}}</option>
                        
                    </select>
               </div> 
-                <div>
+                <div class="champ champ-extrasauce">
                   <label class="label">
                   Extra sauce
               </label>
-                    <select  id="extrasauce" (mousedown)="myselect($event)" data-myclass="extra sauce" data-centermodal="">
-                       <option *ngFor="let item of extrasauce$ | async" value="{{item.id}}">{{item.name}}</option>
+                    <select formControlName="extrasauce" name="extrasauce" id="extrasauce" (mousedown)="myselect($event)" data-myclass="extra sauce" data-centermodal="">
+                        <option></option>
+                        <option *ngFor="let item of extrasauce$ | async" value="{{item.id}}">{{item.name}}</option>
                         
                     </select>
               </div> 
-               <div>
+               <div class="champ champ-promopdt">
                   <label class="label">
                   Promotion pommes de terre
               </label>
-                   <select id="promopdt"  (mousedown)="myselect($event)" data-myclass="promotionpdt" data-centermodal="">
-                       <option *ngFor="let item of promotionpdt$ | async" value="{{item.id}}">{{item.name}}</option>
+                   <select formControlName="promopdt" name="promopdt" id="promopdt"  (mousedown)="myselect($event)" data-myclass="promotionpdt" data-centermodal="">
+                       <option></option> <option *ngFor="let item of promotionpdt$ | async" value="{{item.id}}">{{item.name}}</option>
                    </select>
               </div> 
-    <div>
-        <input type="checkbox" onchange="addviande($event)" name="viandesupplementaire" id="viandesupplementaire" value="1"/>
+    <div class="champ champ-viandesup">
+        <input formControlName="viandesup" name="viandesup" type="checkbox" (change)="addviande($event)" name="viandesupplementaire" id="viandesupplementaire" value="1"/>
                   <label for='viandesupplementaire' class="label">
                   2 Viande supplémentaire  [Ajouter 50,00 TL]
               </label>
                   
               </div>
-                  <div>
-                              <input type="checkbox" onchange="addextrachicken($event)" name="extramcchicken" id="extramcchicken" value="1"/>
+                  <div class="champ champ-extrachicken">
+                      <input formControlName="extrachicken" name="extrachicken" type="checkbox" (change)="addextrachicken($event)" name="extramcchicken" id="extramcchicken" value="1"/>
 
                   <label for='extramcchicken' class="label">
                   Extra McChicken Viande [Ajouter 25,00 TL]
               </label>
                    
               </div>
-              
+                  <a id="ajoutpanier" (click)="alleraupanier1($event)" HIDDEN="TRUE"></a>
+                  
+          </form>
+              </ion-card>
               <div id="sommetotale">{{sommetotale}}</div>
-          </ion-card>
+               <ion-button (click)="ajouteaupanier($event)" class="info">ajouter au panier</ion-button>
+               
+               <ion-button class="info">mise à jour panier</ion-button>
+    
       </div>
-      
+  </ion-content>
       
        <ion-footer>
           <img src="/assets/images/footer-logo.png/"/><p>
@@ -355,16 +367,16 @@
           <br><br>
   </ion-footer>
       
-      <ion-modal [class.active]="centermodal" class="{{this.classname}}"  (willDismiss)="onWillDismiss($event)">
+      
+  
+     
+</div>
+<ion-modal [class.active]="centermodal" class="{{classname}}"  (willDismiss)="onWillDismiss($event)">
           <ng-template class="mytemplate">
               
           </ng-template>
       </ion-modal> 
    
-  </ion-content>
-     
-</div>
-
  
 
 

@@ -1,0 +1,76 @@
+.mesinfos {width:40%;text-align:right;}
+.monform {width:50%;float:left;text-align:left;}
+.mon-container {
+    display:flex;
+    width:100%;
+}
+.mesinfos ion-card-header, .mesinfos ion-card-content,.mesinfos ion-card-title, .mesinfos ion-card-subtitle, .mesinfos img {
+    text-align:right;
+}
+.mesinfos img {
+     
+}
+.mesinfos img,.mesinfos ion-card-title, .mesinfos ion-card-subtitle {
+   max-width:80%;
+   float:right;
+    text-align:center;
+   
+}
+.mesinfos ion-card-title {
+    color:#bd0000;
+    font-weight:900;
+    font-size:30px;
+}
+.mesinfos ion-card-subtitle {
+   
+    font-size:20px;
+}
+ion-card {
+    
+    min-height:100vh;
+}
+.prix {
+    display: inline-block;
+    text-align: center;
+    clear: both;
+    float: right;
+    max-width:80%;
+     width:100%;
+}
+.md.modal-default.hydrated.show-modal {
+    max-width:200px;
+    max-height:200px;
+}
+ion-button {
+    float:left;
+    clear:both;
+}
+.connexion {
+    --background:#DC143C;
+    --color:white;
+    margin-top:70px;
+}
+.sincrire {
+    --background:#FFFF00;
+     --color:white;
+}
+.sansmembre {
+    --background: #778899;
+     --color:white;
+}
+hr {
+    float:left;
+    clear:both;
+}
+.oublie {
+    float:right;
+}
+.monpanier, .identifiant {
+    width:50%;
+}
+.monpanier {
+    float:left;
+}
+.identifiant {
+    float:right;
+}

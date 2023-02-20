@@ -1,9 +1,277 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>nutrition</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
+<ion-menu swipe-gesture="false" menuId="rh"  style="--width: 100vw;" contentId="main-content">
+  <ion-header>
+         
+    <ion-toolbar background="matoolbar">
+     <ion-buttons slot="start">
+        <ion-menu-button (click)="closeRh();">  <ion-icon name="arrow-back"></ion-icon>
 
-</ion-content>
+</ion-menu-button>
+      </ion-buttons>
+      <ion-title>Ressources humaines</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+
+
+
+
+
+    <ion-content class=" ion-padding ion-color-favorite">
+        
+         <ul class="mysubmenu"><li class="retour"><a href="">Ressources humaines</a></li>
+                            <li>
+            <a href="/mcdonaldsta-life" target="_self">La vie chez McDonald's </a>
+        </li>
+        <li>
+            <a href="/mcdonaldsta-career" target="_self">Carrière chez McDonald's</a>
+        </li>
+        <li>
+            <a href="/minds-to-mind" target="_self">Ce que vous pensez</a>
+        </li>
+
+                </ul>
+    
+    </ion-content>
+</ion-menu>
+<ion-menu swipe-gesture="false" menuId="franchisage"  style="--width: 100vw;" contentId="main-content">
+  <ion-header>
+         
+    <ion-toolbar>
+     <ion-buttons slot="start">
+        <ion-menu-button (click)="closeFranchisage();">  <ion-icon name="arrow-back"></ion-icon>
+
+</ion-menu-button>
+      </ion-buttons>
+      <ion-title>Franchisage</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+
+
+
+
+
+    <ion-content class=" ion-padding ion-color-favorite">
+        
+        <ul class="mysubmenu"><li class="retour"><a href="javascript:;">Franchisage</a></li>
+                            <li>
+            <a href="/franchising-application" target="_self">Formulaire de demande de franchise</a>
+        </li>
+        <li>
+            <a href="/real-estate-form" target="_self">Formulaire immobilier</a>
+        </li>
+
+                </ul></ion-content>
+</ion-menu>
+
+
+<ion-menu swipe-gesture="false" menuId="custom"  style="--width: 100vw;" contentId="main-content">
+  <ion-header>
+         
+    <ion-toolbar>
+     <ion-buttons slot="start">
+        <ion-menu-button (click)="closeCustom()"><ion-icon class="ion ion-close-round"></ion-icon>
+</ion-menu-button>
+      </ion-buttons>
+      <ion-title>Mc donalds</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+
+
+
+
+
+    <ion-content class=" ion-padding ion-color-favorite">
+   
+         <div class=" ">
+                <a href="/" id="logo" title="McDonald's">McDonald's</a>
+            </div>
+            <div class="  menu-wrapper">
+                <div class="navigation clearfix">
+                    <a href="javascript:;" class="nav-opener active">Menu</a>
+                    <ul class="menu clearfix active">
+
+        <li>
+            <a href="/mcdonalds-flavors" target="_self">SAVEURS McDONALD'S</a>
+                <ul>
+                            <li>
+            <a href="/mcdonalds-delicacies/burgers" target="_self">BURGERS</a>
+        </li>
+        <li>
+            <a href="/mcdonalds-delicacies/snacks" target="_self">Collations</a>
+        </li>
+        <li>
+            <a href="/mcdonalds-delicacies/happy-meal" target="_self">Happy Meal</a>
+        </li>
+        <li>
+            <a href="/mcdonalds-delicacies/salads" target="_self">Salades</a>
+        </li>
+        <li>
+            <a href="/mcdonalds-delicacies/desserts-milkshakes-" target="_self">Bonbons &amp; Milkshakes</a>
+        </li>
+        <li>
+            <a href="/mcdonalds-delicacies/mcd-cafe" target="_self">McD Café</a>
+        </li>
+        <li>
+            <a href="/mcdonalds-delicacies/breakfasts" target="_self">Petits déjeuners</a>
+        </li>
+        <li>
+            <a href="/mcdonalds-delicacies/drinks" target="_self">Boissons</a>
+        </li>
+        <li>
+            <a href="/mcdonalds-delicacies/sauces" target="_self">Sauces</a>
+        </li>
+
+                </ul>
+        </li>
+        <li>
+            <a href="/campagnes" target="_self">CAMPAGNES</a>
+        </li>
+        <li>
+            <a href="/a-propos-de-nous" target="_self">À PROPOS DE NOUS</a>
+                <ul>
+                            <li>
+            <a href="/notre-histoire" target="_self">Notre histoire</a>
+        </li>
+        <li>
+            <a href="http://www.mcdonaldscocukvakfi.org.tr/" target="_blank">Fondation McDonald's pour l'enfance</a>
+        </li>
+        <li class="has-sub-menu  a-sous-menu">
+                        <span (click)="openRh()" class="openrh" >Ressources humaines <ion-icon color="#ffffff" name="arrow-forward"></ion-icon></span>
+
+                <ul><li class="retour"><a href="">Ressources humaines</a></li>
+                            <li>
+            <a href="/mcdonaldsta-life" target="_self">La vie chez McDonald's </a>
+        </li>
+        <li>
+            <a href="/mcdonaldsta-career" target="_self">Carrière chez McDonald's</a>
+        </li>
+        <li>
+            <a href="/minds-to-mind" target="_self">Ce que vous pensez</a>
+        </li>
+
+                </ul>
+        </li>
+        <li class="has-sub-menu  a-sous-menu">
+             
+                 <ion-buttons slot="start">
+
+            <!--<ion-menu-button >  <button type='button' (click)="openFranchisage()" style='width:50px;height:50px;background-color:yellow;color:#ffffff;' class="openfranchisage"> ></button>
+            </ion-menu-button>-->
+     </ion-buttons>
+
+        <span (click)="openFranchisage()" class="openfranchisage" >Franchisage <ion-icon color="#ffffff" name="arrow-forward"></ion-icon></span>
+                <ul><li class="retour"><a href="javascript:;">Franchisage</a></li>
+                            <li>
+            <a href="/franchising-application" target="_self">Formulaire de demande de franchise</a>
+        </li>
+        <li>
+            <a href="/real-estate-form" target="_self">Formulaire immobilier</a>
+        </li>
+
+                </ul>
+        </li>
+        <li>
+            <a href="/nous-contacter" target="_self">Contacter</a>
+        </li>
+
+                </ul>
+        </li>
+        <li>
+            <a href="/mcdonaldsin-sirri/nutrition" target="_self">LE SECRET DE McDONALD</a>
+                <ul>
+                            <li>
+            <a href="/mcdonaldsin-sirri/nutrition" target="_self">Nutrition</a>
+        </li>
+        <li>
+            <a href="/mcdonaldsin-sirri/quality" target="_self">Qualité</a>
+        </li>
+        <li>
+            <a href="/mcdonaldsin-sirri/tout-ce-qui-vient-a-l-esprit" target="_self">Tout ce que vous vous demandez</a>
+        </li>
+
+                </ul>
+        </li>
+        <li>
+            <a href="/restaurants" target="_self">RESTAURATEURS</a>
+        </li>
+
+                        <li>
+                            <div class="recherche">
+                                <form method="post" action="/search">
+                                    <input name="__RequestVerificationToken" type="hidden" value="4FnSwheRM7VzVLQt4M-RrCIa1Up2rfGKSGM9r0k8SsndwlSBrCCxfk2GzMLjxfS13sWxBYyMCxKLMUHkqMh1TXqQj9k_4yp8s"/>
+                                    <input type="text" class="searchInput" name="searchtext" placeholder="SAISISSEZ LE MOT QUE VOUS SOUHAITEZ RECHERCHER">
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-8 col-md-4 col-lg-4 col-xl-3">
+                <div class="order-phone">
+                    <a href="tel:4446262"> 444 62 62</a>
+                </div>
+                <div class="commande-en-ligne">
+<a href="">COMMANDER</a>
+                </div>
+            </div>
+    
+    </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-text-center ion-padding">
+      <ion-breadcrumbs>
+  <ion-breadcrumb href="#home">Page d'accueil</ion-breadcrumb>
+  <ion-breadcrumb href="#apropos">Le secret de Mac donalds</ion-breadcrumb>
+  <ion-breadcrumb href="#cameras">la nutrition</ion-breadcrumb>
+  
+</ion-breadcrumbs>
+      <div text-wrap class="item-text-wrap ion-text-center background">
+          <span class="title">Nutrition Et Substances Allergènes | McDonalds</span>
+          <br>
+          <span class="subtitle">Ne laissez aucun point d'interrogation dans votre esprit. Tout ce que vous vous demandez sur nous est ici !</span>
+      </div>
+<ion-grid [fixed]="true">
+  <ion-row>
+      <ion-col><a href="/mcdonaldsin-sirri/nutrition">La nutrition</a></ion-col>
+      <ion-col><a href="/mcdonaldsin-sirri/quality">Qualité</a></ion-col>
+      <ion-col><a href="/mcdonaldsin-sirri/tout-ce-qui-vient-a-l-esprit">Tout ce que vous aimeriez</a></ion-col>
+  </ion-row>
+</ion-grid>
+  
+          
+        <h2>QUE SIGNIFIENT ALLERGIES ET ALLERGÈNES ?</h2>
+        <img src="" class="mypic"/>
+        <p>C'est une réaction excessive du corps à certaines substances qui ne sont normalement pas nocives. Le système immunitaire, qui protège le corps contre les maladies, réagit de manière excessive à certaines substances qui ne sont pas nocives chez certaines personnes. Ces réactions sont appelées « allergies » et les substances qui provoquent des réactions allergiques sont appelées « allergènes ». Les substances qui provoquent des allergies alimentaires dans le règlement sur l'étiquetage et l'information des consommateurs du Codex alimentaire turc sont répertoriées dans la colonne horizontale du tableau. Les allergènes des produits de la carte sont exprimés par un « + » dans le tableau. N'importe lequel de nos clients ; S'il dit avoir une allergie ou une intolérance alimentaire, ou s'il est atteint de la maladie coeliaque, vous pouvez proposer un menu à notre client en utilisant ce document.</p>
+<p>Les produits tels que les frites et les pommes de terre rissolées ne contiennent aucune source d'allergènes. Cependant, il n'existe aucune mesure supplémentaire pour prévenir la contamination croisée des allergènes dans nos cuisines.</p>
+<p>Les consommateurs doivent être informés qu'il existe un risque de contamination croisée avec des articles contenant des allergènes, car les cuisines ouvertes fonctionnent à un rythme intense. S'il y a différentes questions des consommateurs sur le sujet, vous pouvez consulter le service d'assurance qualité.</p>
+<ion-button class="info">Liste des allergènes</ion-button>
+    
+     
+       <ion-footer>
+          <img src="/assets/images/footer-logo.png/"/><p>
+          Politique de confidentialité et de sécurité des données</p><p>Conditions d'utilisation</p><p>Services de la société de l'information</p><p>Contactez-nous</p><p>
+              Copyright© Anadolu Restaurant Management Ltd. Sti.</p>
+          
+          <p>444 62 62</p>
+           <p>ORDRE</p>
+          <br><br>
+  </ion-footer>
+  </ion-content>
+     
+</div>
+
+ 
+

@@ -231,39 +231,55 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">
-
-      <ion-slides>
-  <ion-slide>
-      <a href="/telechargerapp"> <img src="/assets/images/mcdoimage.jpeg"></a>
-  </ion-slide>
-  <ion-slide>
-   <img src="/assets/images/mcdoimage.jpeg">
-  </ion-slide>
-  <ion-slide>
-   <img src="/assets/images/mcdoimage.jpeg">
-  </ion-slide>
-</ion-slides>
-
-  
-  
-  <ion-modal trigger="offre-special"  #offre_speciale [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" (willDismiss)="onWillDismiss($event)">
-    <ng-template class="mytemplate">
-      <ion-header>
-       
+  <ion-content class="ion-text-center ion-padding">
+      <div id="clickeditem"></div>
+      <div class="mon-container">
         
-      </ion-header>
-      <div class="ion-padding offrespeciale">
-     <img src="/assets/images/mcdo.png"/>
-Pour une offre spéciale
-<br>
-Télécharger l'application       
+          <div class="monpanier"><h2>Mon panier</h2><hr>
+              <div class="card">
+              </div>
+          </div>
+              
+              
+          <div class="identifiant"><h2>Identifiant</h2>
+              <hr><!-- comment -->
+              <ion-item>
+    <ion-input placeholder="nom d'utilisateur"></ion-input>
+  </ion-item>
+                <ion-item>
+    <ion-input placeholder="numero"></ion-input>
+  </ion-item>
+              <a href="" class="oublie">J'ai oublié mon mot de passe</a>
+                <ion-button class="connexion">connexion</ion-button>
+                <ion-button class="sinscrire">s'inscrire</ion-button>
+                <hr>
+                <ion-button class="sansmembre">continuer sans être membre</ion-button>
 
+          </div>
+        
       </div>
-    </ng-template>
-  </ion-modal>      
+      
+      
+       <ion-footer>
+          <img src="/assets/images/footer-logo.png/"/><p>
+          Politique de confidentialité et de sécurité des données</p><p>Conditions d'utilisation</p><p>Services de la société de l'information</p><p>Contactez-nous</p><p>
+              Copyright© Anadolu Restaurant Management Ltd. Sti.</p>
+          
+          <p>444 62 62</p>
+           <p>ORDRE</p>
+          <br><br>
+  </ion-footer>
+      
+      <ion-modal [class.active]="centermodal" class="{{this.classname}}"  (willDismiss)="onWillDismiss($event)">
+          <ng-template class="mytemplate">
+              
+          </ng-template>
+      </ion-modal> 
+   
   </ion-content>
+     
 </div>
 
  
+
 
