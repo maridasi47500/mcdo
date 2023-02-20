@@ -6,7 +6,7 @@ import { Item } from '../../../services/item';
 import { Menucat } from './../services/menucat';
 import { Menu } from './../services/menu';
 import { Menuitem } from './../services/menuitem';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras} from '@angular/router';
 import { RouterOutlet, ActivationStart } from '@angular/router';
 import { ElementRef,ViewChild } from '@angular/core';
 import { IonModal,IonItem } from '@ionic/angular';
@@ -14,6 +14,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { AnimationController,ModalController } from '@ionic/angular';
 import { ModalPage } from '../menumodal/modal.page';
 import { PanierPage } from '../menupanier/modal.page';
+import { Order } from '../services/order';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
 @Component({
   selector: 'app-menucommande',
@@ -56,8 +57,21 @@ menuprix:number;
 menuid:number=0;
 sommetotale:number = this.mysum();
 ii:number = 0;
- ionicForm:FormGroup;
 
+ ionicForm:FormGroup;
+myfieldsform={ 
+       myid1: "",
+       boisson1: "",
+       boisson2:"",
+       accomp:"",
+       sauce:"",
+       promo:"",promodessert:"",
+       extrasauce:"",
+       promopdt:"",
+       viandesup:"",
+       extrachicken:"",
+
+} 
 private selects = document.getElementsByTagName("select");
 mysum() {
     delete this.sommedesprix["undefined"];
@@ -88,13 +102,37 @@ get myid1(): string {
 	}
 alleraupanier1($evt) {
     //alert('ondestroy modal ');
-  
-    
+    console.log("aller à panier");
+    var myinput;
+    var selects= Object.keys(this.myfieldsform);
+    console.log(selects);
+    var myorder={};
+    for (var i = 0;i<selects.length;i++) {
+        myinput=document.querySelector<HTMLInputElement>("#"+selects[i])!;
+        console.log(selects[i], myinput.value);
+        if (myinput.type && myinput.type === "checkbox") {
+            myorder[selects[i]]=myinput.checked;
+        } else {
+        myorder[selects[i]]=myinput.value;
+        }
+        
+    }
+    var order=new Order();
+    this.ionicForm.setValue(myorder);
     console.log(this.ionicForm.value, "myform");
-    this.myrouter.navigate(["/panierv2"], {queryParams:this.ionicForm.value});
+    let navigationExtras: NavigationExtras =  {
+      state: {
+        order: JSON.stringify(this.ionicForm.value)
+      }
+    };
+    navigationExtras=this.ionicForm.value;
+     this.myrouter.navigate(['']).then(e => {
+    this.myrouter.navigate(["basketv2"], {queryParams:navigationExtras});
+     });
 
    
 }
+
 addextrachicken($evt) {
         if ($evt.target.checked == true) {
         this.extramcchicken = 25
@@ -104,7 +142,7 @@ addextrachicken($evt) {
     this.editmysum()
 }
 
-  constructor(public formBuilder: FormBuilder,public db: BaseDatosLocalProvider,private outlet: RouterOutlet, public myrouter:Router,private route : ActivatedRoute,private modalController: ModalController,private othermodalController: ModalController) {
+  constructor(public formBuilder: FormBuilder,public db: BaseDatosLocalProvider,private outlet: RouterOutlet, private myrouter:Router,private route : ActivatedRoute,private modalController: ModalController,private othermodalController: ModalController) {
      
 
        }
@@ -114,10 +152,10 @@ classname;
 
 centermodal: boolean = false;
     createForm() {
-        alert("ok")
+        //alert("ok")
        this.ionicForm=this.formBuilder.group({myid1: [null],boisson1: [null],boisson2:[null],accomp:[null],sauce:[null],promo:[null],promodessert:[null],extrasauce:[null],promopdt:[null],viandesup:[null],extrachicken:[null]});
        console.log(this.ionicForm.value,"valueee");
-       alert("ok")
+       //alert("ok")
     }
    ngOnInit() {
     this.createForm();

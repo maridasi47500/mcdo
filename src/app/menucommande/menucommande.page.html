@@ -254,7 +254,7 @@
           <ion-card color="primary" class="monform">
               <form id="monformulaire" [formGroup]="ionicForm">
                   <div class="champ champ-myid1">
-                      <input formControlName="myid1" type="hidden" value="{{menuid}}"/>
+                      <input formControlName="myid1" id="myid1" type="hidden" value="{{menuid}}"/>
                   </div>
               <div class="champ champ-boisson1">
                   <label class="label">
@@ -331,14 +331,14 @@
                    </select>
               </div> 
     <div class="champ champ-viandesup">
-        <input formControlName="viandesup" name="viandesup" type="checkbox" (change)="addviande($event)" name="viandesupplementaire" id="viandesupplementaire" value="1"/>
+        <input formControlName="viandesup" name="viandesup" type="checkbox" (change)="addviande($event)" name="viandesupplementaire" id="viandesup" value="1"/>
                   <label for='viandesupplementaire' class="label">
                   2 Viande supplémentaire  [Ajouter 50,00 TL]
               </label>
                   
               </div>
                   <div class="champ champ-extrachicken">
-                      <input formControlName="extrachicken" name="extrachicken" type="checkbox" (change)="addextrachicken($event)" name="extramcchicken" id="extramcchicken" value="1"/>
+                      <input formControlName="extrachicken" name="extrachicken" type="checkbox" (change)="addextrachicken($event)" id="extrachicken" value="1"/>
 
                   <label for='extramcchicken' class="label">
                   Extra McChicken Viande [Ajouter 25,00 TL]

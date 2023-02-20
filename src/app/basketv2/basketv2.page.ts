@@ -56,6 +56,7 @@ extramcchicken:number=0;
   }
 
   ngOnInit() {
+      //alert("ok");
       this.userObject = this.navParams.data;
    this.data=this.navParams.get('data')|| {};
    //alert(JSON.stringify(this.userObject));

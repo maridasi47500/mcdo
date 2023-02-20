@@ -5,7 +5,7 @@ import { Basketv2Page } from './basketv2.page';
 
 const routes: Routes = [
   {
-    path: 'basketv2',
+    path: 'panierv2',
     component: Basketv2Page
   }
 ];

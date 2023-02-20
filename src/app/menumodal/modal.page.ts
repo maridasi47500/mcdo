@@ -7,6 +7,7 @@ import { Item } from '../../../services/item';
 import { Bicycle } from '../services/bicycle';
 import { Flavor } from '../../../services/flavor';
 import { Menuitem } from '../services/menuitem';
+import { Order } from '../services/order';
 import { MenucommandePage } from '../menucommande/menucommande.page';
 import { IonModal,IonItem,IonCard } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
@@ -107,9 +108,13 @@ ngOnDestroy(){
 val+="]";
 if (val !== "[]") {
 
-y.innerHTML +="<option value=\""+val+"\">"+str+"</option>";
+y.innerHTML += y.children[0].outerHTML.replace("></option>"," value=\""+val+"\" ng-reflect-value=\""+val+"\">"+str+"</option>");
 //alert(val);
 y.value=val;
+let order = new Order();
+order[this.myid] = val;
+this.mypage.ionicForm.setValue(order);
+
 }
 console.log(y.value)
 
