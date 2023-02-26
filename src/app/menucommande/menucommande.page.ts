@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { BaseDatosLocalProvider } from './../../../services/base-donnees-locale';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { of, map,Subscription } from 'rxjs';
@@ -7,24 +7,27 @@ import { Menucat } from './../services/menucat';
 import { Menu } from './../services/menu';
 import { Menuitem } from './../services/menuitem';
 import { ActivatedRoute, Router, NavigationExtras} from '@angular/router';
-import { RouterOutlet, ActivationStart } from '@angular/router';
+import { ActivationStart } from '@angular/router';
 import { ElementRef,ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { IonModal,IonItem } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { AnimationController,ModalController } from '@ionic/angular';
 import { ModalPage } from '../menumodal/modal.page';
 import { PanierPage } from '../menupanier/modal.page';
 import { Order } from '../services/order';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 @Component({
   selector: 'app-menucommande',
   templateUrl: './menucommande.page.html',
   styleUrls: ['./menucommande.page.scss'],
 })
-export class MenucommandePage implements OnInit {
+export class MenucommandePage implements OnInit,OnDestroy {
    cat: any;  
    myid;
-  
+
 menu$: Observable<Menu> = of(new Menu);
 id1:any;
 boissons$: Observable<Menuitem[]> = of([]);
@@ -100,7 +103,29 @@ addviande($evt) {
 get myid1(): string {
 		return this.ionicForm.value['myid1'];
 	}
-alleraupanier1($evt) {
+  ngOnDestroy (){
+      console.log("destroy de la page menu commande")
+      this._menuobservable.unsubscribe();
+this._dbobservable.unsubscribe();
+
+this._routeobservable.unsubscribe();
+this._boissonobservable.unsubscribe();
+this._extrasauceobservable.unsubscribe();
+this._sauceobservable.unsubscribe();
+this._accompagnementobservable.unsubscribe();
+this._promotionobservable.unsubscribe();
+this._promotiondessertobservable.unsubscribe();
+this._promotionpdtobservable.unsubscribe();
+this._prixitemnb.unsubscribe();
+console.log('hgrt kdghl');
+          if (this.modal) {
+      //this.modal.ngOnDestroy();
+    }
+              if (this.othermodal) {
+      //this.othermodal.ngOnDestroy();
+    }
+  }
+async alleraupanier1($evt) {
     //alert('ondestroy modal ');
     console.log("aller à panier");
     var myinput;
@@ -120,17 +145,33 @@ alleraupanier1($evt) {
     var order=new Order();
     this.ionicForm.setValue(myorder);
     console.log(this.ionicForm.value, "myform");
-    let navigationExtras: NavigationExtras =  {
-      state: {
-        order: JSON.stringify(this.ionicForm.value)
-      }
-    };
-    navigationExtras=this.ionicForm.value;
-     this.myrouter.navigate(['']).then(e => {
-    this.myrouter.navigate(["basketv2"], {queryParams:navigationExtras});
-     });
 
-   
+//    this.myrouter.navigate(["panierv2"], navigationExtras);
+this.cancelPanier();
+
+    this.ngOnDestroy();
+   const navigationExtras = {
+      queryParams: this.ionicForm.value, relativeTo: this.route
+      
+    };
+    //this.myrouter.navigate(['/panierv2'],navigationExtras);
+    //this.navCtrl.push()
+    console.log("navigate");
+    if (this.nativeStorage.getItem('macommande')) {
+        var items=await this.nativeStorage.getItem('macommande');
+        if (items.length) {
+        items=items.filter(x=>x.myid1 !== this.ionicForm.value.myid1);
+
+        }else{
+            items=[];
+        }
+        items.push(this.ionicForm.value);
+        this.nativeStorage.setItem('macommande',items)
+    } else {
+    }
+    this.myrouter.navigate(["/panierv2"]);
+    console.log("ok navigate");
+    //document.getElementById('basketv2').click();
 }
 
 addextrachicken($evt) {
@@ -142,7 +183,7 @@ addextrachicken($evt) {
     this.editmysum()
 }
 
-  constructor(public formBuilder: FormBuilder,public db: BaseDatosLocalProvider,private outlet: RouterOutlet, private myrouter:Router,private route : ActivatedRoute,private modalController: ModalController,private othermodalController: ModalController) {
+  constructor(private nativeStorage: NativeStorage,private navCtrl: NavController,private location: Location,public formBuilder: FormBuilder,public db: BaseDatosLocalProvider, private myrouter:Router,private route : ActivatedRoute,private modalController: ModalController,private othermodalController: ModalController) {
      
 
        }
@@ -158,6 +199,7 @@ centermodal: boolean = false;
        //alert("ok")
     }
    ngOnInit() {
+       console.log('on init menu commande');
     this.createForm();
       this._menuobservable = this.db.menuFound$.subscribe(item => {
            this.menu$ = of(item);
@@ -261,7 +303,9 @@ this._promotionpdtobservable = this.db.promotionpdt$.subscribe(item => {
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
-
+  cancelPanier() {
+    this.othermodalController.dismiss(null, 'cancel');
+  }
   confirm() {
     this.modal.dismiss(this.name, 'confirm');
   }

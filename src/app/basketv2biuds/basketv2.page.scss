@@ -1,7 +1,8 @@
 .mesinfos {width:40%;text-align:right;}
-.monform {width:50%;float:left;text-align:left;height:100%;}
+.monform {width:50%;float:left;text-align:left;}
 .mon-container {
     display:flex;
+    width:100%;
 }
 .mesinfos ion-card-header, .mesinfos ion-card-content,.mesinfos ion-card-title, .mesinfos ion-card-subtitle, .mesinfos img {
     text-align:right;
@@ -26,8 +27,7 @@
 }
 ion-card {
     
-    min-height:200px;
-    
+    min-height:100vh;
 }
 .prix {
     display: inline-block;
@@ -41,7 +41,36 @@ ion-card {
     max-width:200px;
     max-height:200px;
 }
-#sommetotale {
-    font-size:30px;
-    text-align:center;
+ion-button {
+    float:left;
+    clear:both;
+}
+.connexion {
+    --background:#DC143C;
+    --color:white;
+    margin-top:70px;
+}
+.sincrire {
+    --background:#FFFF00;
+     --color:white;
+}
+.sansmembre {
+    --background: #778899;
+     --color:white;
+}
+hr {
+    float:left;
+    clear:both;
+}
+.oublie {
+    float:right;
+}
+.monpanier, .identifiant {
+    width:50%;
+}
+.monpanier {
+    float:left;
+}
+.identifiant {
+    float:right;
 }

@@ -23,7 +23,7 @@ import { RouterOutlet, ActivationStart } from '@angular/router';
     ReactiveFormsModule
     
   ],
-  providers: [MenucommandePage,RouterOutlet],
+  providers: [MenucommandePage,FormBuilder],
   declarations: [MenucommandePage,ModalPage,PanierPage]
 })
 export class MenucommandePageModule {}

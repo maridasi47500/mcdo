@@ -1,0 +1,84 @@
+$black: #fff;
+$blanc:white;
+.toolbar-background {
+    background: var(matoolbar);
+}
+.toolbar-title-default.ios.in-toolbar.hydrated {
+  --background: black;
+    --color: white;
+}
+
+$mycolor: red;
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+:root {
+--colorcontainer: #000;
+}
+
+    
+    .ios.modal-default.hydrated.show-modal {
+	
+	top: 70%;
+	position: absolute;
+	width: 100%;
+
+    }
+  
+
+    .inner-scroll.scroll-y {
+        background-color: $mycolor;
+    }
+    .inner-scroll.scroll-y.overscroll{
+        background: $mycolor;
+    }
+
+  .inner-scroll.scroll-y.overscroll{
+        background: $mycolor;
+    }
+    .ion-padding.offrespeciale.ios.overscroll.content-ltr.hydrated {
+            --ion-background-color: #ff1a1a;
+            text-align:center;
+            vertical-align:middle;
+    }
+ion-card {
+	width: 50%;
+	float: left;
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+        text-align:left;
+        padding:0;
+        
+}
+ion-card p, ion-card h1 {
+    margin:10px;
+}
+ion-card > img {
+    min-width:80%;
+    margin:10px;
+}

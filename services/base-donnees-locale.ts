@@ -331,6 +331,32 @@ const observer = async() => {
     observer()
     return this.sauce$;
 }
+getallmenus(){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menus", [])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menu;
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items={ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            description: res.rows.item(i).image,
+            url: res.rows.item(i).image,
+            cat_id: res.rows.item(i).image,
+            myorder: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           };
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.menu.next(items);
+    }));
+}
+}
 getmenu(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menus where id = ?", [id])

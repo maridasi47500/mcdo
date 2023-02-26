@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +18,7 @@ import { HamburgerPageModule } from  './hamburger/hamburger.module';
     
   declarations: [AppComponent],
   imports: [HamburgerPageModule, ModalPageModule, CommonModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
-  providers: [  SQLite,
+  providers: [  SQLite,FormBuilder,
     SQLitePorter,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

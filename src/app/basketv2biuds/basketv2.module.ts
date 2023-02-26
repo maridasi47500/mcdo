@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { Basketv2PageRoutingModule } from './basketv2-routing.module';
 
 import { Basketv2Page } from './basketv2.page';
+import { NavController, NavParams } from '@ionic/angular';
+import { RouterOutlet, ActivationStart } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { Basketv2Page } from './basketv2.page';
     IonicModule,
     Basketv2PageRoutingModule
   ],
-  declarations: [Basketv2Page]
+  declarations: [Basketv2Page],
+ providers: [NavParams,RouterOutlet]
 })
 export class Basketv2PageModule {}

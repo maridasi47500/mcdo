@@ -13,7 +13,7 @@
   </ion-header>
   
 
-    <a href="/panierv2" id="basketv2" hidden="true"></a>
+
 
 
 
@@ -202,7 +202,7 @@
                             <div class="recherche">
                                 <form method="post" action="/search">
                                     <input name="__RequestVerificationToken" type="hidden" value="4FnSwheRM7VzVLQt4M-RrCIa1Up2rfGKSGM9r0k8SsndwlSBrCCxfk2GzMLjxfS13sWxBYyMCxKLMUHkqMh1TXqQj9k_4yp8s"/>
-                                    <input type="text" class="searchInput" name="searchtext" placeholder="SAISISSEZ LE MOT QUE VOUS SOUHAITEZ RECHERCHER"/>
+                                    <input type="text" class="searchInput" name="searchtext" placeholder="SAISISSEZ LE MOT QUE VOUS SOUHAITEZ RECHERCHER">
                                 </form>
                             </div>
                         </li>
@@ -231,149 +231,27 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div class="ion-text-center ion-padding">
-      <div id="clickeditem"></div>
-      <div class="mon-container">
-          
-          <ion-card color="primary" class="mesinfos">
-  <ion-card-header>
-    <ion-card-title>{{(menu$ | async).name}}</ion-card-title>
-    <ion-card-subtitle>{{(menu$ | async).description}}</ion-card-subtitle>
-  </ion-card-header>
+  <ion-content class="ion-padding">
+      <ion-card> <H1>NOUS SOMMES TRISTES! NOUS NE POUVONS PAS VOIR LA PAGE QUE VOUS RECHERCHEZ.</H1>
 
-  <ion-card-content>
-      <img src="{{(menu$ | async).image}}"/>
+      <p>Vous n'avez pas trouvé ce que vous cherchiez ? Vous pouvez apprendre toutes les questions que vous avez en cliquant sur le lien Contactez-nous.
+</p>
+<p>Vous pouvez retenter votre chance en cliquant sur le lien de la page d'accueil,
+</p>
+<p>Vous pouvez rencontrer les saveurs de McDonald's en vous rendant sur la page Tous les produits,
+</p>
     
-      <br>
-      <p class="prix">{{(menu$ | async).prix}} €</p>
-    
-  </ion-card-content>
-              
-</ion-card>
-          
-          <ion-card color="primary" class="monform">
-              <form id="monformulaire" [formGroup]="ionicForm">
-                  <div class="champ champ-myid1">
-                      <input formControlName="myid1" id="myid1" type="hidden" value="{{menuid}}"/>
-                  </div>
-              <div class="champ champ-boisson1">
-                  <label class="label">
-                  1. Boisson
-              </label>
-                  <select formControlName="boisson1" id="boisson1" (mousedown)="myselect($event)" data-myclass="boisson" data-centermodal="">
-                       <option></option>   <option *ngFor="let item of boissons$ | async" value="{{item.id}}">{{item.name}}</option>
-                      
-                  </select>
-              </div> 
-                <div class="champ champ-boisson2">
-                  <label class="label">
-                  2. Boisson
-              </label>
-                    
-                     <select formControlName="boisson2" name="boisson2" id="boisson2" (mousedown)="myselect($event)" data-myclass="boisson" data-centermodal="">                       
-                        <option></option>  <option *ngFor="let item of boissons$ | async" value="{{item.id}}">{{item.name}}</option>
-</select>
-              </div> 
-       
-               <div class="champ champ-accomp">
-                  <label class="label">
-                  Accompagnement
-              </label>
-                   <select formControlName="accomp" name="accomp" id="accomp" (mousedown)="myselect($event)" data-myclass="accompagnement" data-centermodal="">
-                        <option></option><option *ngFor="let item of accompagnement$ | async" value="{{item.id}}">{{item.name}}</option>
-                       
-                   </select>
-              </div>
-               <div class="champ champ-sauce">
-                  <label class="label">
-                  Sauce
-              </label>
-                   <select formControlName="sauce" name="sauce" id="sauce"  (mousedown)="myselect($event)" data-myclass="sauce" data-centermodal="">
-                       <option></option> <option *ngFor="let item of sauce$ | async" value="{{item.id}}">{{item.name}}</option>
-                       
-                   </select>
-              </div> 
-               <div class="champ champ-promo">
-                  <label class="label">
-                  Promotion
-              </label>
-                   <select name="promo" id="promo"  (mousedown)="myselect($event)" data-myclass="promotion" data-centermodal="">
-                        <option></option><option *ngFor="let item of promotion$ | async" value="{{item.id}}">{{item.name}}</option>
-                       
-                   </select>
-              </div> 
-               <div class="champ champ-promodessert">
-                  <label class="label">
-                  Promotion dessert
-              </label>
-                   <select formControlName="promodessert" name="promodessert" id="promodessert" (mousedown)="myselect($event)" data-myclass="promotion dessert" data-centermodal="">
- <option></option>
-                       <option *ngFor="let item of promotiondessert$ | async" value="{{item.id}}">{{item.name}}</option>
-                       
-                   </select>
-              </div> 
-                <div class="champ champ-extrasauce">
-                  <label class="label">
-                  Extra sauce
-              </label>
-                    <select formControlName="extrasauce" name="extrasauce" id="extrasauce" (mousedown)="myselect($event)" data-myclass="extra sauce" data-centermodal="">
-                        <option></option>
-                        <option *ngFor="let item of extrasauce$ | async" value="{{item.id}}">{{item.name}}</option>
-                        
-                    </select>
-              </div> 
-               <div class="champ champ-promopdt">
-                  <label class="label">
-                  Promotion pommes de terre
-              </label>
-                   <select formControlName="promopdt" name="promopdt" id="promopdt"  (mousedown)="myselect($event)" data-myclass="promotionpdt" data-centermodal="">
-                       <option></option> <option *ngFor="let item of promotionpdt$ | async" value="{{item.id}}">{{item.name}}</option>
-                   </select>
-              </div> 
-    <div class="champ champ-viandesup">
-        <input formControlName="viandesup" name="viandesup" type="checkbox" (change)="addviande($event)" name="viandesupplementaire" id="viandesup" value="1"/>
-                  <label for='viandesup' class="label">
-                  2 Viande supplémentaire  [Ajouter 50,00 TL]
-              </label>
-                  
-              </div>
-                  <div class="champ champ-extrachicken">
-                      <input formControlName="extrachicken" name="extrachicken" type="checkbox" (change)="addextrachicken($event)" id="extrachicken" value="1"/>
-
-                  <label for='extrachicken' class="label">
-                  Extra McChicken Viande [Ajouter 25,00 TL]
-              </label>
-                   
-              </div>
-                  <a id="ajoutpanier" (click)="alleraupanier1($event)" HIDDEN="TRUE"></a>
-                  
-          </form>
-                <div id="sommetotale">{{sommetotale}}</div>
-               <ion-button (click)="ajouteaupanier($event)" class="info">ajouter au panier</ion-button>
-               
-               <ion-button class="info">mise à jour panier</ion-button>
-              </ion-card>
-            
-    
-      </div>
-  </div>
-      
-       <ion-footer>
-          <img src="/assets/images/footer-logo.png/"/><p>
-          Politique de confidentialité et de sécurité des données</p><p>Conditions d'utilisation</p><p>Services de la société de l'information</p><p>Contactez-nous</p><p>
-              Copyright© Anadolu Restaurant Management Ltd. Sti.</p>
-          
-          <p>444 62 62</p>
-           <p>ORDRE</p>
-          <br><br>
-  </ion-footer>
-      
-      
-  
+<p>Vous pouvez vous rendre sur la page de commande et vous faire plaisir avec les saveurs McDonald's.
+</p></ion-card>
      
+
+      <ion-card>
+          <img src="/assets/images/404-logo.png"/>
+      </ion-card>
+  
+   
+  </ion-content>
 </div>
 
-   
  
-
 

@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HamburgerPage } from './hamburger/hamburger.page';
-
+import { MenucommandePage } from './menucommande/menucommande.page';
+import { Basketv2Page } from './basketv2/basketv2.page';
+import { Produitv2Page } from './produitv2/produitv2.page';
+import { FirtsPage } from './firts/firts.page';
+import { SecondComponent } from './second/second.component';
 const routes: Routes = [
+  { path: 'first-component', component: FirtsPage },
+  { path: 'second-component', component: SecondComponent },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
@@ -141,12 +147,18 @@ const routes: Routes = [
   {
     path: 'mcdonaldsta-career',
     loadChildren: () => import('./macdonalds-career/macdonalds-career.module').then( m => m.MacdonaldsCareerPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule)
   }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forChild([{ path: 'produitv2/:pid', component: MenucommandePage },
+  { path: 'panierv2', component: Basketv2Page }])
   ],
   exports: [RouterModule]
 })
