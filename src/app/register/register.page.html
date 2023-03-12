@@ -1,0 +1,264 @@
+<div class="ion-page" id="main-content">
+    <ion-card class="mycard">
+        <h1>
+NOUVEAU MEMBRE</h1>
+                      <form id="monformulaire" [formGroup]="ionicForm">
+                          <div class="col1">
+                  <div class="champ champ-nom">
+                      <input formControlName="nom" id="nom" placeholder="nom et surnom" type="text" value=""/>
+                  
+                  <label class="label">
+                  nom et surnom
+              </label>
+                  </div>
+                               <div style="color: red; padding-top: 0.2rem" *ngIf="submitted"> 
+                   {{ionicForm.get('nom').hasError('required') ? 'champ requis' :""}}
+             
+                  </div> 
+                          <ion-list>
+                           <ion-item>
+    <ion-label>Telephone input</ion-label>
+    <ion-input type="tel" formControlName="tel" placeholder="888-888-8888"></ion-input>
+  </ion-item>
+</ion-list>
+                              <div style="color: red; padding-top: 0.2rem" *ngIf="submitted"> 
+                   {{ionicForm.get('tel').hasError('required') ? 'champ requis' :""}}
+             
+                  </div>  
+                          </div>
+                          <div class="col2">
+                              <div class="champ champ-email">
+                      <input formControlName="email" id="email" placeholder="email" type="text" value=""/>
+                  
+                  <label class="label">
+                  email
+              </label>
+                      
+                  </div>
+                              <!-- comment -->
+                                  <div style="color: red; padding-top: 0.2rem" *ngIf="submitted"> 
+                   {{ionicForm.get('email').hasError('required') ? '    Email requis' :""}}
+                    {{!myvalidemail ? "Email existe déjà" : ""}}
+                  </div>  
+                              
+                              <div class="champ champ-mdp">
+                      <input formControlName="mdp" id="mdp" placeholder="mot de passe" type="text" value=""/>
+                  
+                  <label class="label">
+                  mot de passe
+              </label>
+                  </div>
+                               <div style="color: red; padding-top: 0.2rem" *ngIf="submitted"> 
+                   {{ionicForm.get('mdp').hasError('required') ? 'champ requis' :""}}
+             
+                  </div> 
+                              <div class="champ champ-nom">
+                      <input formControlName="mdp2" id="mdp2" placeholder="mot de passe à nouveau" type="text" value=""/>
+                  
+                  <label class="label">
+                  mot de passe à nouveau
+              </label>
+                  </div>
+                               <div style="color: red; padding-top: 0.2rem" *ngIf="submitted"> 
+                   {{ionicForm.get('mdp2').hasError('required') ? 'champ requis' :""}}
+             
+                  </div> 
+                              
+                          </div>
+                          
+                          <div class="checkboxes"><!-- comment --><!-- comment -->
+                          
+                          
+                              
+                              <div>La protection de vos données personnelles et de votre vie privée est importante pour nous. Lisez notre texte de clarification concernant la manière dont vos données personnelles sont traitées.
+                              </div>
+<div class="champ champ-lutexte">
+                      <input formControlName="lutexte" id="lutexte" placeholder="" type="checkbox" value="1"/>
+                  
+                  <label class="label" for="lutexte" (click)="mylink($event)">
+                      J'ai lu le <a (click)="textemodal($event)">texte de clarification</a> et j'accepte la <a (click)="declaration($event)">déclaration de consentement explicite</a> concernant le traitement de mes données personnelles.
+              </label>
+                  </div>
+                               <div style="color: red; padding-top: 0.2rem" *ngIf="submitted"> 
+                   {{ionicForm.get('lutexte').hasError('required') ? 'champ requis' :""}}
+             
+                  </div> 
+        <div class="champ champ-emailcommercial">
+                      <input formControlName="emailcommercial" id="emailcommercial" placeholder="" type="checkbox" value="1"/>
+                  
+                  <label class="label" for="emailcommercial">
+J'accepte de recevoir des messages électroniques commerciaux (SMS, e-mail et autres) à mon intention
+              </label>
+                  </div>                      
+                              
+                              
+                          
+                          
+                          </div>
+                          <div class="actions"><!-- comment -->
+                              <ion-button class="annuler">Annuler</ion-button>
+                               <ion-button class="enregistrer"
+      expand="block" 
+      (click)="inscription()">Enregistrer</ion-button>
+                          </div>
+                      </form>
+    </ion-card>
+
+</div>
+<ion-modal [isOpen]="isModal1Open">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Texte de clarification et déclaration de consentement express</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen1(false);">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div>
+
+
+Veuillez reconnaître que vous avez lu et compris le texte de clarification et la déclaration de consentement express.
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+<ion-modal [isOpen]="isModal2Open">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Texte de clarification et déclaration de consentement express</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen2(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        
+
+                 <div align="center">
+                     <strong> ANADOLU RESTORAN İŞLETMELERİ LİMİTED ŞİRKETİ PROTECTION DES DONNÉES PERSONNELLES DES VISITEURS DU SITE WEB ET DES TEXTES D'ÉCLAIRAGE DES APPLICATIONS MOBILES </strong>
+                 </div>
+                 <div>
+                     Conformément à la loi sur la protection des données personnelles n° 6698 (<strong>« loi »</strong> ou <strong>« KVKK »</strong>), <strong>Anadolu Restoran İşletmeleri Limited Şirketi </strong>(Restaurant Anadolu)
+                     est le <strong>responsable du traitement</strong> en raison du traitement des données personnelles.
+                     Selon l'article 10 de la loi, qui réglemente la responsabilité de la divulgation, les données
+                     les personnes responsables, les personnes physiques dont elles traitent les données personnelles, dans certaines matières.
+                     chargé d'informer.
+                 </div>
+              
+                 <div>
+                     <strong>Personne de contact</strong>
+                 </div>
+                 <div>
+                     Notre site Web (<a href="https://www.mcdonalds.com.tr/">Site Web</a>) ou application mobile dont les données personnelles sont traitées par Anadolu Vous êtes considéré comme une personne concernée en raison des activités de traitement des données dans le cadre de (<a href="http://www.mcdonalds.com.tr/app-indir">application mobile</a> et comme détaillé ci-dessous.
+                 </div>
+                 <div>
+                     <strong> </strong>
+                 </div>
+                 <div>
+                     <strong>Contrôleur de données</strong>
+                 </div>
+                 <div>
+                     C'est le responsable du traitement de <strong>Anadolu Restaurant</strong>, qui détermine les finalités et les moyens du traitement des données personnelles vous concernant, et est responsable de la mise en place et de la gestion du système d'enregistrement des données.
+                 </div>
+                 <div>
+                     <strong> </strong>
+                 </div>
+                 <div>
+                     <strong>
+                         Vos données personnelles traitées, finalités du traitement et motifs juridiques
+                     </strong>
+                 </div>
+                 <div>
+                     <strong>Si vous visitez uniquement le site Web ou achetez des produits ou des services sans aucun abonnement :</strong>
+                 </div>
+                 <table style="width:100%" cellpacing="0" cellpadding="0" border="1">
+                     <tbody>
+                         <tr>
+                             <td width="189" valign="top">
+                                 <div>
+                                     <strong>Données personnelles</strong>
+                                 </div>
+                             </td>
+                             <td width="255" valign="top">
+                                 <div>
+                                     <strong>Finalités du traitement</strong>
+                                 </div>
+                             </td>
+                             <td width="161" valign="top">
+                                 <div>
+                                     <strong>Raison légale</strong>
+                                 </div>
+                             </td>
+                             <td width="161" valign="top">
+                                 <div>
+                                     <strong>Base juridique</strong>
+                                 </div>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td width="189" valign="top">
+                                 <strong>
+                                     Nom, prénom, numéro de téléphone, adresse, adresse e-mail personnelle
+
+                                     ID client, produit commandé, date de commande, informations sur la sélection de boissons, informations sur les ingrédients indésirables, informations sur les promotions, informations sur la sélection de sauces, sélection de jouets surprises, informations sur les sous-produits, description de la commande et informations sur le mode de paiement, informations sur Mc Point
+                                 </strong>
+                             </td>
+                             <td width="255" valign="top">
+                                 <div>
+                                     Exécution des processus de vente de biens/services
+                                     Exécution des processus de gestion de la relation client
+                                     Exécution des processus de production et d'exploitation de biens / services
+                                     Exécution des Biens / Services Services d'assistance après-vente
+                                 </div>
+                             </td>
+                             <td width="161" valign="top">
+                                 <div>
+                                     Conformément à KVKK Art.5/2c, puisqu'il est directement lié à l'établissement ou à l'exécution d'un contrat
+                                 </div>
+
+                             </td>
+                                 </tr><!-- comment --></tbody></table><!-- comment -->
+                                 
+      
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+<ion-modal [isOpen]="isModal3Open">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>McDonald's Turquie</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen3(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div>
+
+
+Veuillez reconnaître que vous avez lu et compris le texte de clarification et la déclaration de consentement express.
+        </div>
+        <div class="corps-modal">
+                 <div align="center">
+                     <strong> ANADOLU RESTAURANT ENTERPRISES LIMITED COMPANY </strong>
+                 </div>
+                 <div align="center">
+                     <strong> PROTECTION DES DONNEES PERSONNELLES CONSENTEMENT EXPRESS </strong>
+                 </div>
+                 <div>
+                     J'ai lu et compris le texte de clarification qui m'a été soumis par Anadolu Restoran İşletmeleri Limited Şirketi ("<strong>Société</strong>") en vertu de la loi sur la protection des données personnelles n° 6698 ("<strong>KVKK</strong> ”).
+                 </div>
+                 <div>
+                 Identité, communication, marketing, transaction client, informations sur la sécurité des transactions : (nom, prénom, date de naissance, sexe, numéro de téléphone (mobile), adresse e-mail personnelle, adresse IP, mot de passe / mot de passe et autorisation de communication électronique commerciale, autorisation KVKK , y compris l'identifiant client, le produit commandé, la date de la commande, les informations sur la sélection des boissons, les informations sur les matériaux indésirables, les informations promotionnelles, les informations sur la sélection des sauces, la sélection des jouets surprises, les informations sur les sous-produits, la description de la commande et les informations sur le mode de paiement, les opportunités et les campagnes utilisées) des processus de campagne / promotion, exécution d'études d'analyse marketing, planification et exécution des activités de communication d'entreprise, planification et exécution des processus de marketing et de vente de produits et / ou services, planification et exécution des processus de gestion de la relation client et établissement de la fidélité aux produits et / ou Services Proposés par la Société et/ Planification et/ou Exécution des Processus d'Augmentation ou d'Augmentation et dans ce cadre, messages commerciaux électroniques (téléphone, SMS, J'accepte le traitement de mes données personnelles par la Société à des fins d'envoi de MMS, d'e-mail (imprimé ou personnalisé) ou autre.
+                 </div>
+                 <div>
+                 Aux fins susmentionnées et aux fins de la réalisation de processus de sécurité de l'information, d'assurer la sécurité des opérations du responsable du traitement et de gérer l'infrastructure informatique et technologique de la Société, la Société, dans le pays ou à l'étranger, sur la base de mon consentement exprès ; que la Société pourrait partager avec des tiers (envoi de SMS et d'e-mails, Gestion de la Relation Client, régies publicitaires, cloud computing, sauvegarde, sociétés de support logiciel) des services liés au marketing et à la gestion de la relation client, aux activités logicielles et informatiques, et/ou Je suis d'accord qu'il peut ouvrir l'accès aux gens.
+                 </div>
+      </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>

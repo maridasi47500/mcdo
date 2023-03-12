@@ -13,6 +13,7 @@ import { PanierPage } from '../menupanier/modal.page';
 import { FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
 
 import { RouterOutlet, ActivationStart } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { RouterOutlet, ActivationStart } from '@angular/router';
     ReactiveFormsModule
     
   ],
-  providers: [MenucommandePage,FormBuilder],
+  providers: [MenucommandePage,FormBuilder,Storage],
   declarations: [MenucommandePage,ModalPage,PanierPage]
 })
 export class MenucommandePageModule {}

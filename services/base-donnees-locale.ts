@@ -6,6 +6,7 @@ import { Cat } from './cat';
 import { Menucat } from './../src/app/services/menucat';
 import { Menu } from './../src/app/services/menu';
 import { Menuitem } from './../src/app/services/menuitem';
+import { User } from './../src/app/services/user';
 
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -31,6 +32,7 @@ arr: Item[] = [];
 arrmenucat: Menucat[] = [];
 arrmenu: Menu[] = [];
 arrmenuitem: Menuitem[] = [];
+usermcdo: User[] = [];
 /*
 boissons$: Observable<Menuitem[]> = of([]);
 sauce$: Observable<Menuitem[]> = of([]);
@@ -42,6 +44,8 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
 */
   private boisson = new BehaviorSubject(this.arrmenuitem);
         boissons$ = this.boisson.asObservable();
+  private users = new BehaviorSubject(this.usermcdo);
+        users$ = this.users.asObservable();
           private menuitem = new BehaviorSubject(this.arrmenuitem);
         choisirItems$ = this.menuitem.asObservable();
   private sauce = new BehaviorSubject(this.arrmenuitem);
@@ -356,6 +360,75 @@ const observer = async() => {
       this.menu.next(items);
     }));
 }
+}
+createuser(emailcommercial,email,mdp,nom,tel){
+const observer = async() => {
+          var x = await (this.storage.executeSql("insert into users (emailcommercial,email,mdp,nom,tel) values (?,?,?,?,?)", [emailcommercial,email,mdp,nom,tel])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: User[];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            email: res.rows.item(i).email,  
+            mdp: res.rows.item(i).mdp
+            
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.users.next(items);
+    }));
+}
+observer();
+return this.users$;
+}
+getallusersbyemail(email){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from users where email = ?", [email])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: User[];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            email: res.rows.item(i).email,  
+            mdp: res.rows.item(i).mdp
+            
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.users.next(items);
+    }));
+}
+observer();
+return this.users$;
+}
+getallusers(email,mdp){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from users where email = ? and mdp = ?", [email,mdp])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: User[];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            email: res.rows.item(i).email,  
+            mdp: res.rows.item(i).mdp
+            
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.users.next(items);
+    }));
+}
+observer();
+return this.users$;
 }
 getmenu(id){
 const observer = async() => {

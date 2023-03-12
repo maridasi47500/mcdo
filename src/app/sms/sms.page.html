@@ -1,0 +1,25 @@
+
+VÉRIFICATION SMS <!-- jaune -->
+
+
+
+<div *ngIf="temps > 0">Veuillez entrer le code que vous avez reçu sur votre téléphone dans la case ci-dessous
+    <form id="telephoneformulaire" [formGroup]="telForm">
+    <ion-input formControlName="code" placeholder="confirmation code"></ion-input>
+Temps restant : {{temps}}
+
+    </form>
+
+</div>
+
+<div *ngIf="temps === 0">
+    Le temps est écoulé. Veuillez renouveler le processus de vérification en envoyant un nouveau code !
+</div>
+
+<hr><!-- comment -->
+
+
+<ion-button class="grey" (click)="cancel()">abandonner</ion-button>
+<ion-button class="continuer red"  *ngIf="temps > 0">continuer</ion-button>
+<ion-button class="continuer red"  *ngIf="temps === 0">envoyer le code une seconde fois</ion-button>
+

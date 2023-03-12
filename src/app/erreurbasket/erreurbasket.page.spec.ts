@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { Basketv2Page } from './basketv2.page';
+import { ErreurbasketPage } from './erreurbasket.page';
 
-describe('Basketv2Page', () => {
-  let component: Basketv2Page;
-  let fixture: ComponentFixture<Basketv2Page>;
+describe('ErreurbasketPage', () => {
+  let component: ErreurbasketPage;
+  let fixture: ComponentFixture<ErreurbasketPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ Basketv2Page ],
+      declarations: [ ErreurbasketPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Basketv2Page);
+    fixture = TestBed.createComponent(ErreurbasketPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

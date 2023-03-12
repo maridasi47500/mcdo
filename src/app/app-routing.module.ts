@@ -6,8 +6,17 @@ import { Basketv2Page } from './basketv2/basketv2.page';
 import { Produitv2Page } from './produitv2/produitv2.page';
 import { FirtsPage } from './firts/firts.page';
 import { SecondComponent } from './second/second.component';
+import { RegisterPage } from './register/register.page';
 const routes: Routes = [
+   {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
   { path: 'first-component', component: FirtsPage },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
   { path: 'second-component', component: SecondComponent },
   {
     path: 'home',
@@ -16,6 +25,10 @@ const routes: Routes = [
   {
     path: 'mcdonalds-flavors',
     loadChildren: () => import('./saveurs/saveurs.module').then( m => m.SaveursPageModule)
+  },
+    {
+    path: 'addressv2/addressstatus',
+    loadChildren: () => import('./erreurbasket/erreurbasket.module').then( m => m.ErreurbasketPageModule)
   },
   {
     path: '',
@@ -149,16 +162,42 @@ const routes: Routes = [
     loadChildren: () => import('./macdonalds-career/macdonalds-career.module').then( m => m.MacdonaldsCareerPageModule)
   },
   {
+    path: 'login/forgotpassword',
+    loadChildren: () => import('./forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
+  },
+
+   {
+    path: 'login/successemail',
+    loadChildren: () => import('./forgotpassword/successemail.module').then( m => m.SuccessemailPageModule)
+  },  
+  {
     path: '**',
     loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule)
+  },
+  {
+    path: 'sms',
+    loadChildren: () => import('./sms/sms.module').then( m => m.SmsPageModule)
+  },
+  {
+    path: 'modallocalisation',
+    loadChildren: () => import('./modallocalisation/modallocalisation.module').then( m => m.ModallocalisationPageModule)
+  },
+  {
+    path: 'infolocalisation',
+    loadChildren: () => import('./infolocalisation/infolocalisation.module').then( m => m.InfolocalisationPageModule)
   }
+
+ 
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
     RouterModule.forChild([{ path: 'produitv2/:pid', component: MenucommandePage },
-  { path: 'panierv2', component: Basketv2Page }])
+  { path: 'panierv2', component: Basketv2Page },
+  { path: 'register', component: RegisterPage }
+  ]
+  )
   ],
   exports: [RouterModule]
 })

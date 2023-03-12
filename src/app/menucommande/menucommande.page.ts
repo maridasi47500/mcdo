@@ -18,7 +18,7 @@ import { ModalPage } from '../menumodal/modal.page';
 import { PanierPage } from '../menupanier/modal.page';
 import { Order } from '../services/order';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+//import { NativeStorage } from '@ionic-native/native-storage/ngx';
 @Component({
   selector: 'app-menucommande',
   templateUrl: './menucommande.page.html',
@@ -157,18 +157,18 @@ this.cancelPanier();
     //this.myrouter.navigate(['/panierv2'],navigationExtras);
     //this.navCtrl.push()
     console.log("navigate");
-    if (this.nativeStorage.getItem('macommande')) {
-        var items=await this.nativeStorage.getItem('macommande');
-        if (items.length) {
-        items=items.filter(x=>x.myid1 !== this.ionicForm.value.myid1);
-
-        }else{
-            items=[];
-        }
-        items.push(this.ionicForm.value);
-        this.nativeStorage.setItem('macommande',items)
-    } else {
-    }
+//    if (this.nativeStorage.getItem('macommande')) {
+//        var items=await this.nativeStorage.getItem('macommande');
+//        if (items.length) {
+//        items=items.filter(x=>x.myid1 !== this.ionicForm.value.myid1);
+//
+//        }else{
+//            items=[];
+//        }
+//        items.push(this.ionicForm.value);
+//        this.nativeStorage.setItem('macommande',items)
+//    } else {
+//    }
     this.myrouter.navigate(["/panierv2"]);
     console.log("ok navigate");
     //document.getElementById('basketv2').click();
@@ -182,8 +182,8 @@ addextrachicken($evt) {
     }
     this.editmysum()
 }
-
-  constructor(private nativeStorage: NativeStorage,private navCtrl: NavController,private location: Location,public formBuilder: FormBuilder,public db: BaseDatosLocalProvider, private myrouter:Router,private route : ActivatedRoute,private modalController: ModalController,private othermodalController: ModalController) {
+//private nativeStorage: NativeStorage,
+  constructor(private navCtrl: NavController,private location: Location,public formBuilder: FormBuilder,public db: BaseDatosLocalProvider, private myrouter:Router,private route : ActivatedRoute,private modalController: ModalController,private othermodalController: ModalController) {
      
 
        }

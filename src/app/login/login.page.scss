@@ -1,3 +1,42 @@
+#main-content {
+    background-image: url('/assets/images/bg.jpg');
+    //text-align:center;
+    vertical-align: middle;
+}
+h1 {
+    color:red;
+    text-align:center;
+}
+.col1, .col2 {
+    width:50%;
+    float:left;
+}
+.annuler {
+--background:darkgrey;
+}
+.continuer {
+   --background:red;
+  
+}
+.checkboxes {
+    float:left;clear:both;
+    
+}
+.mycard {
+	
+	
+	width: 300px;
+	max-width: 960px;
+	padding: 15px 6vmin;
+	margin: 98px auto 138px auto !important;
+}
+.actions {
+    text-align:center;
+}
+.jaune {
+    color:yellow;
+}
+/*autres*/
 .mesinfos {width:40%;text-align:right;}
 .monform {width:50%;float:left;text-align:left;}
 .mon-container {
@@ -65,12 +104,11 @@ hr {
 .oublie {
     float:right;
 }
-.monpanier, .identifiant {
-    width:50%;
-}
+
 .monpanier {
     float:left;
 }
-.identifiant {
-    float:right;
+
+.mycard {
+    background-color:rgba(255,255,255,0.5);
 }
