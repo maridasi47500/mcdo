@@ -17,6 +17,7 @@ import { AnimationController,ModalController } from '@ionic/angular';
 import { ModalPage } from '../menumodal/modal.page';
 import { PanierPage } from '../menupanier/modal.page';
 import { Order } from '../services/order';
+import { AuthService } from '../../../services/authservice';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 @Component({
@@ -169,6 +170,8 @@ this.cancelPanier();
 //        this.nativeStorage.setItem('macommande',items)
 //    } else {
 //    }
+    
+    this.auth.setOrder(this.ionicForm.value);
     this.myrouter.navigate(["/panierv2"]);
     console.log("ok navigate");
     //document.getElementById('basketv2').click();
@@ -183,7 +186,7 @@ addextrachicken($evt) {
     this.editmysum()
 }
 //private nativeStorage: NativeStorage,
-  constructor(private navCtrl: NavController,private location: Location,public formBuilder: FormBuilder,public db: BaseDatosLocalProvider, private myrouter:Router,private route : ActivatedRoute,private modalController: ModalController,private othermodalController: ModalController) {
+  constructor(private auth:AuthService,private navCtrl: NavController,private location: Location,public formBuilder: FormBuilder,public db: BaseDatosLocalProvider, private myrouter:Router,private route : ActivatedRoute,private modalController: ModalController,private othermodalController: ModalController) {
      
 
        }

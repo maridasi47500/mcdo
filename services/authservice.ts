@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import { Storage } from '@ionic/storage';
+import {BehaviorSubject,take} from 'rxjs';
+import { Storage } from '@ionic/storage-angular';
 
+import { Component, OnInit,OnDestroy } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -10,21 +11,48 @@ export class AuthService {
 
     private loggedIn = new BehaviorSubject<boolean>(false);
     private ordered = new BehaviorSubject<boolean>(false);
-
-    constructor(private storage: Storage) {
+        loggedIn$ = this.loggedIn.asObservable();
+        ordered$ = this.ordered.asObservable();
+    constructor(private storage: Storage) {}
+    async local(key, value?:any) {
+    if(value === undefined) {
+        return await this.storage.get(key);
     }
 
+    return this.storage.set(key, value);
+}
     get isLoggedIn() {
         return this.loggedIn.asObservable();
     }
     get hasOrdered() {
         return this.ordered.asObservable();
     }    
+    
+    get getOrdered() {
+        return this.storage.get("ordered") ? true : false;
+    }
+    async getOrder() {
+        return await this.storage.get("macommande") ? true : false;
+    }
     public setOrder(order) {
-        if (!!order) {
-            this.storage.set('macommande',order); // store session data
-            this.ordered.next(true);
+         const func=async() =>{
+             console.log("await my order");
+        let myorder=await this.local('macommande');
+        console.log("apercu copmmande", myorder)
+        if (!myorder) {
+            myorder=[];
         }
+
+        
+        myorder.push(order);
+        if (!!myorder) {
+            this.storage.set('macommande',myorder); // store session data
+            this.storage.set('ordered',true);
+        }        
+        this.ordered.next(true);
+         }
+         func();
+         console.log("fin my order")
     }
     public setLogged(user) {
         if (!!user) {

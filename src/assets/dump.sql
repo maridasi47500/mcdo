@@ -11,7 +11,7 @@ cat_id INTEGER
 CREATE TABLE IF NOT EXISTS users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT, 
-    mdp TEXT
+    mdp TEXT,
 emailcommercial int,nom text,tel text
 );
 CREATE TABLE IF NOT EXISTS commandes(

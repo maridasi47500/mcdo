@@ -33,8 +33,18 @@ getRandomInt(min, max) {
 
     return this.modalCtrl.dismiss(null , 'confirm');
   }
+  checkcode($evt){
+      console.log(this.code,String(document.querySelector<HTMLInputElement>("#code")!.value));
+      if (String(this.code) === String(document.querySelector<HTMLInputElement>("#code")!.value)){
+          this.confirm()
+      }
+  }  
+  printcode(){
+      console.log(this.code);
+  }
   mycode(){
                 this.code=this.getRandomInt(10000,99999);
+                console.log(this.code)
                // if (!this.register.ionicForm.get('tel').hasError('required')) { 
         //this.sms.send(this.telForm.code, "votre  code ionic macdonalds "+String(this.code)+ "==== bonne commande ====")
                 //}
@@ -57,7 +67,7 @@ console.log("erreur1????????")
 const source = interval(1000);
 const text = 'Your Text Here';
 this.subscription = source.subscribe(val => this.mytime());
-
+this.mycode();
   }
 ngOnDestroy() {
   this.subscription.unsubscribe();

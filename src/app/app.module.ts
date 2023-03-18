@@ -14,13 +14,13 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { ModalPageModule } from './hamburger/modal.hamburger.module';  
 import { CommonModule } from "@angular/common";
 import { HamburgerPageModule } from  './hamburger/hamburger.module';  
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 
 @NgModule({
     
   declarations: [AppComponent],
   imports: [HamburgerPageModule, ModalPageModule, CommonModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
-  providers: [  SQLite,FormBuilder,Storage,
+  providers: [ SQLite,Storage,FormBuilder,
     SQLitePorter,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

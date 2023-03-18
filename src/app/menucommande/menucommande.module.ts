@@ -13,7 +13,7 @@ import { PanierPage } from '../menupanier/modal.page';
 import { FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
 
 import { RouterOutlet, ActivationStart } from '@angular/router';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 
 @NgModule({
   imports: [

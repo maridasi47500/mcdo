@@ -28,6 +28,7 @@
     "@ionic/angular": "^6.5.3",
     "@ionic/cordova-builders": "^7.0.0",
     "@ionic/storage": "^3.0.6",
+    "@ionic/storage-angular": "^3.0.6",
     "@ngtools/webpack": "^15.1.4",
     "and": "^0.0.3",
     "bower": "^1.8.14",

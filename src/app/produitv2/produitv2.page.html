@@ -233,27 +233,41 @@
   </ion-header>
   <ion-content class="ion-padding">
 
-      <ion-slides>
-  <ion-slide>
+      <ion-slides class="mcdonaldsphoto">
+  <ion-slide class="slidephoto">
       <a href="/telechargerapp"> <img src="/assets/images/mcdoimage.jpeg"></a>
   </ion-slide>
-  <ion-slide>
+  <ion-slide class="slidephoto">>
    <img src="/assets/images/mcdoimage.jpeg">
   </ion-slide>
-  <ion-slide>
+  <ion-slide class="slidephoto">>
    <img src="/assets/images/mcdoimage.jpeg">
   </ion-slide>
 </ion-slides>
       <h1>McDONALD'S TASTE - DES OFFRES ATTRAYANTES</h1>
       <div class="mycontent">
           <ion-segment value="heart">
-  
+    <ion-segment-button value="offresattractives">
+     offres attractives
+  </ion-segment-button>
   <ion-segment-button *ngFor="let cat of menucats$ | async" value="{{cat.url}}">
      {{cat.name}}
   </ion-segment-button>
 </ion-segment>
       </div>
-      <div class="mesmenus"><ion-card color="primary">
+      <div class="mesmenus">
+                <ion-card color="primary" *ngFor="let menu of menus$ | async" (click)="goto(menu.id)" class="mycardmenu">
+  <ion-card-header>
+    <ion-card-title>{{menu.name}}</ion-card-title>
+    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    Card Content
+  </ion-card-content>
+</ion-card>
+          
+          <ion-card color="primary">
   <ion-card-header>
     <ion-card-title>Card Title</ion-card-title>
     <ion-card-subtitle>Card Subtitle</ion-card-subtitle>

@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 export interface Myitem {
     id:number;
     cat_id:number;
@@ -46,6 +46,8 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
         boissons$ = this.boisson.asObservable();
   private users = new BehaviorSubject(this.usermcdo);
         users$ = this.users.asObservable();
+          private usersregister = new BehaviorSubject(this.usermcdo);
+        usersregister$ = this.usersregister.asObservable();
           private menuitem = new BehaviorSubject(this.arrmenuitem);
         choisirItems$ = this.menuitem.asObservable();
   private sauce = new BehaviorSubject(this.arrmenuitem);
@@ -132,6 +134,7 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
     observer();
     return this.observable;
   }
+  
     prix1item(typename,value,myid){
 const observer = async() => {
          
@@ -372,17 +375,19 @@ const observer = async() => {
          items.push({ 
             id: res.rows.item(i).id,
             email: res.rows.item(i).email,  
-            mdp: res.rows.item(i).mdp
+            mdp: res.rows.item(i).mdp,
+            nom: res.rows.item(i).nom,
+            tel: res.rows.item(i).tel
             
            });
         }
       }
       //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
-      this.users.next(items);
+      this.usersregister.next(items);
     }));
 }
 observer();
-return this.users$;
+return this.usersregister$;
 }
 getallusersbyemail(email){
 const observer = async() => {
@@ -395,7 +400,9 @@ const observer = async() => {
          items.push({ 
             id: res.rows.item(i).id,
             email: res.rows.item(i).email,  
-            mdp: res.rows.item(i).mdp
+            mdp: res.rows.item(i).mdp,
+            nom: res.rows.item(i).nom,
+            tel: res.rows.item(i).tel
             
            });
         }
@@ -418,7 +425,9 @@ const observer = async() => {
          items.push({ 
             id: res.rows.item(i).id,
             email: res.rows.item(i).email,  
-            mdp: res.rows.item(i).mdp
+            mdp: res.rows.item(i).mdp,
+            nom: res.rows.item(i).nom,
+            tel: res.rows.item(i).tel
             
            });
         }
@@ -875,7 +884,8 @@ this.createDatabaseObject()
     });
   }
   getMenucats(){
-    return this.storage.executeSql('SELECT * FROM menucats', []).then(res => {
+      const observer = async() => {
+          var x = await (this.storage.executeSql('SELECT * FROM menucats', []).then(res => {
       let items: Menucat[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -889,7 +899,10 @@ this.createDatabaseObject()
         }
       }
       this.menuCatList.next(items);
-    });
+    }));};
+    observer();
+    return this.menuListFilled$;
+    
   }
    getResto(){
     return this.storage.executeSql('SELECT * FROM menus where type = ?', ["restaurant"]).then(res => {
@@ -933,6 +946,30 @@ this.createDatabaseObject()
       this.serviceforfaitList.next(items);
     });
   }
+
+     getMenusProduits(){
+    return this.storage.executeSql('SELECT * FROM menus where type = ? or type = ? and myorder = 1', ["service de forfait","restaurant"]).then(res => {
+      let items: Menu[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+          items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            myorder: res.rows.item(i).myorder,
+            url: res.rows.item(i).url,
+            prix: res.rows.item(i).prix,
+            type: res.rows.item(i).type,
+            cat_id: res.rows.item(i).cat_id,
+            description: res.rows.item(i).description
+           });
+        }
+      }
+      this.serviceforfaitList.next(items);
+    });
+  }
+
+
   getCats(){
     return this.storage.executeSql('SELECT * FROM flavors', []).then(res => {
       let cats: Flavor[] = [];
@@ -1061,7 +1098,7 @@ this.getItems();
       this.getItems();
     });
   }
-    getMenuCatByUrl(id): Observable<Menucat> {
+    getMenuCatByUrl(id) {
   const observer = async() => {
        
           var x = await (this.storage.executeSql('SELECT * FROM menucats WHERE url = ?', [id]).then(res => { 
@@ -1079,7 +1116,8 @@ this.getItems();
     return this.menucatFound$;
   }
     getMenusByMenuCatId(id){
-    return this.storage.executeSql('SELECT * FROM menus where cat_id = ?', [id]).then(res => {
+        const observer = async() => {
+     var x = await(this.storage.executeSql('SELECT * FROM menus where cat_id = ?', [id]).then(res => {
       let menus: Menu[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1098,7 +1136,10 @@ this.getItems();
       }
       
       this.menusList.next(menus);
-    });
+    }));
+        }
+        observer()
+        return this.menusFound$;
   }
   getCatByUrl(id): Observable<Flavor> {
   const observer = async() => {

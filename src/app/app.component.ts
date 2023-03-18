@@ -3,7 +3,7 @@ import {AuthService} from '../../services/authservice';
 
 import { Platform } from '@ionic/angular';
 
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { NavController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -26,6 +26,7 @@ constructor(
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.checkLogin();
+          this.storage.create();
   }
 
 private checkLogin() {

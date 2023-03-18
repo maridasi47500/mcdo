@@ -10,6 +10,7 @@ ion-segment {
   justify-content: center;
   max-width:100px;
 }
+
 ion-segment ion-segment-button {
 	float: left;
 	
@@ -32,4 +33,14 @@ ion-card-header.ios {
 ion-card {
     max-width:100px;
     float:left;
+}
+.mcdonaldsphoto {
+    height:200px;
+    padding:0;
+} 
+.mcdonaldsphoto .slidephoto * {
+    width:100%;
+}
+.mycardmenu {
+    cursor:pointer;
 }

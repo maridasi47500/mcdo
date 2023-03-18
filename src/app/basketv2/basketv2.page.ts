@@ -10,7 +10,7 @@ import { User } from './../services/user';
 import { Menu } from './../services/menu';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Platform } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import {AuthService} from '../../../services/authservice';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
 
@@ -57,13 +57,19 @@ public data: any;
 sommedesprix:object = {};
 viandesupplementaire:number=0;
 extramcchicken:number=0;
+isLoggedin$:Observable<Boolean>=of(false);
     article:any;
+    isLoggedin=this.authService.isLoggedIn;
     userObject:any;
     //private nativeStorage: NativeStorage
   constructor(private db:BaseDatosLocalProvider, private formBuilder:FormBuilder,   private storage: Storage,
     private authService: AuthService,private myrouter:Router,public plt: Platform,private route : ActivatedRoute) { 
         
                               
+  }
+  ionViewDidEnter(){
+   this.isLoggedin=this.authService.isLoggedIn;
+   console.log("is logged in : ",this.isLoggedin)
   }
   ionicForm;
 connexion(){
@@ -92,7 +98,16 @@ sinscrire(){
     this.myrouter.navigate(["/register"]);
 }
 myvalidemail=false;
+loggedin=false;
+ordered=false;
   ngOnInit() {
+        this.authService.loggedIn$.subscribe(x=>this.loggedin = x);
+        this.authService.ordered$.subscribe(x=>this.ordered = x);
+
+        console.log("is looged in",this.ordered,this.loggedin)
+        if (!this.ordered) {
+            this.myrouter.navigate(["/produitv2"])
+        }
        this.createForm();
              this._userobservable = this.db.users$.subscribe(item => {
            this.users$ = of(item);
