@@ -44,7 +44,7 @@ getRandomInt(min, max) {
   }
   mycode(){
                 this.code=this.getRandomInt(10000,99999);
-                console.log(this.code)
+                alert("*NOUVEAU SMS*  : le code de verif est "+this.code)
                // if (!this.register.ionicForm.get('tel').hasError('required')) { 
         //this.sms.send(this.telForm.code, "votre  code ionic macdonalds "+String(this.code)+ "==== bonne commande ====")
                 //}

@@ -27,6 +27,7 @@ constructor(
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.checkLogin();
           this.storage.create();
+          this.storage.clear();
   }
 
 private checkLogin() {

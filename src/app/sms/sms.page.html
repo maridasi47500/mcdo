@@ -5,7 +5,7 @@ VÉRIFICATION SMS <!-- jaune -->
 
 <div *ngIf="temps > 0">Veuillez entrer le code que vous avez reçu sur votre téléphone dans la case ci-dessous
     <form id="telephoneformulaire" [formGroup]="telForm">
-    <ion-input (focus)="printcode()"  formControlName="code" id="code" placeholder="confirmation code"></ion-input>
+    <ion-input (focus)="printcode()" formControlName="code" id="code" placeholder="confirmation code"></ion-input>
 Temps restant : {{temps}}
 
     </form>

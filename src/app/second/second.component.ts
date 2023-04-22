@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { of, map,Subscription } from 'rxjs';
+import { BaseDatosLocalProvider } from './../../../services/base-donnees-locale';
+import { ActivatedRoute, Router, NavigationExtras} from '@angular/router';
 
 @Component({
   selector: 'app-second',
@@ -7,8 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SecondComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route:ActivatedRoute) { }
+  nom="";
+ville="";
+private _routeobservable: Subscription;
+private _dbobservable: Subscription;
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  this.route.queryParams.subscribe(params => {
+  if (params) {
+    let queryParams = params;
+    console.log(queryParams)
+    this.nom=queryParams.nom;
+    this.ville=queryParams.ville;
+  }
+});      
+      }
+        
 
 }

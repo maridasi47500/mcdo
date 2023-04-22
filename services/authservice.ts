@@ -7,13 +7,16 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnInit {
+  private isServiceReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     private loggedIn = new BehaviorSubject<boolean>(false);
     private ordered = new BehaviorSubject<boolean>(false);
         loggedIn$ = this.loggedIn.asObservable();
         ordered$ = this.ordered.asObservable();
-    constructor(private storage: Storage) {}
+    constructor(private storage: Storage) {
+        this.isServiceReady.next(true);
+        }
     async local(key, value?:any) {
     if(value === undefined) {
         return await this.storage.get(key);
@@ -21,6 +24,20 @@ export class AuthService {
 
     return this.storage.set(key, value);
 }
+  getServiceState() {
+    return this.isServiceReady.asObservable();
+  }
+
+async ngOnInit(){
+            this.ordered.next(await this.storage.get("ordered"))
+        this.isServiceReady.next(true);
+}
+ 
+    connecterutilisateur(email){
+        this.storage.set('user',email);
+        this.storage.set('loggedin',true);
+        this.loggedIn.next(true);
+    }
     get isLoggedIn() {
         return this.loggedIn.asObservable();
     }

@@ -13,6 +13,8 @@ import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import {AuthService} from '../../../services/authservice';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
+import { ModallocalisationPage } from '../modallocalisation/modallocalisation.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-basketv2',
@@ -62,7 +64,7 @@ isLoggedin$:Observable<Boolean>=of(false);
     isLoggedin=this.authService.isLoggedIn;
     userObject:any;
     //private nativeStorage: NativeStorage
-  constructor(private db:BaseDatosLocalProvider, private formBuilder:FormBuilder,   private storage: Storage,
+  constructor(private modalCtrl: ModalController, private db:BaseDatosLocalProvider, private formBuilder:FormBuilder, private storage: Storage,
     private authService: AuthService,private myrouter:Router,public plt: Platform,private route : ActivatedRoute) { 
         
                               
@@ -71,12 +73,13 @@ isLoggedin$:Observable<Boolean>=of(false);
    this.isLoggedin=this.authService.isLoggedIn;
    console.log("is logged in : ",this.isLoggedin)
   }
-  ionicForm;
+  ionicForm=this.formBuilder.group({email:[null, Validators.required],myemail:[null,EmailValidator.validEmail],mdp: [null,Validators.required]});
+  form;
 connexion(){
     this.submitted=true;
 //this.ionicForm.submit();
-var form=this.ionicForm.value;
-this.db.getallusers(form.email,form.mdp);
+this.form=this.ionicForm.value;
+this.db.getallusers(this.form.email,this.form.mdp);
 }
 submitted=false;
 createForm(){
@@ -94,6 +97,18 @@ editmodel(){
 forgetpassword(){
     this.myrouter.navigate(["/login/forgotpassword"]);
 }
+ async openSansMembreModal(){
+        const modal = await this.modalCtrl.create({
+      component: ModallocalisationPage,
+    });
+    modal.present();
+
+
+
+}
+continuersansmembre(){
+this.openSansMembreModal();
+}
 sinscrire(){
     this.myrouter.navigate(["/register"]);
 }
@@ -101,15 +116,30 @@ myvalidemail=false;
 loggedin=false;
 ordered=false;
   ngOnInit() {
-        this.authService.loggedIn$.subscribe(x=>this.loggedin = x);
-        this.authService.ordered$.subscribe(x=>this.ordered = x);
-
-        console.log("is looged in",this.ordered,this.loggedin)
-        if (!this.ordered) {
+      console.log("on init bazsket v2")
+      try {
+                  this._dbobservable = this.authService.getServiceState().subscribe((res) => {
+      if(res){
+      console.log(res);
+        this.authService.loggedIn$.subscribe(x=>{
+            this.loggedin = x;
+            });
+        this.authService.ordered$.subscribe(x=>{
+            console.log("a commandé ? ", x)
+            this.ordered = x;
+            console.log("a commandé ? ", x,this.ordered,!this.ordered,typeof x === "undefined" )
+               if (typeof x === "undefined" || !this.ordered) {
+                   console.log("pas de commande");
             this.myrouter.navigate(["/produitv2"])
         }
+            });
+        
+        console.log("is looged in",this.ordered,this.loggedin)
+
        this.createForm();
              this._userobservable = this.db.users$.subscribe(item => {
+                 console.log(item)
+                 console.log("users:")
            this.users$ = of(item);
            if(item && item[0]) {
                this.myvalidemail=true;
@@ -119,7 +149,19 @@ ordered=false;
       console.log("MON PANIER");
           this.plt.ready().then((readySource) => {
                     console.log('Platform ready from', readySource);
-        //this.nativeStorage.getItem("macommande").then(params=>{
+          });
+      }
+                  });
+            } catch(e){
+                console.log(e);
+}
+
+}
+}
+
+
+
+                  //this.nativeStorage.getItem("macommande").then(params=>{
 //this.boissons=params["boissons"];
 //this.boisson1=params["boisson1"];
 //this.boisson2=params["boisson1"];
@@ -133,7 +175,7 @@ ordered=false;
 //this.listsauce=params["listsauce"];
 //this.listextrasauce=params["listextrasauce"];
 //        });
-          });
+
 //      this.userObject = this.navParams.data;
 //      let myparams=this.router.getCurrentNavigation().extras.state;
 //      console.log(myparams);
@@ -217,6 +259,4 @@ ordered=false;
 //       this.db.getmenu(this.userObject.id);
 //       this.extramcchicken=this.userObject.extrachicken;
 //       this.viandesupplementaire=this.userObject.viandesup;
-  }
 
-}

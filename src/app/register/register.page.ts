@@ -16,7 +16,8 @@ import { NavController } from "@ionic/angular";
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-ionicForm;
+ionicForm=this.formBuilder.group({lutexte: [null,Validators.requiredTrue],emailcommercial: [null],email: [null,Validators.required],mdp: [null,Validators.required],mdp2:[null,Validators.required],nom:[null,Validators.required],tel:[null,Validators.required]});
+;
 myvalidphonenumber;
 myvalidemail;
 message;
@@ -47,7 +48,7 @@ console.log("erreur1????????")
       this.createForm();
               this._userobservable = this.db.users$.subscribe(item => {
            //this.users$ = of(item);
-           if(!item[0]) {
+           if(typeof item === "undefined" || !item[0]) {
                console.log("erreur1??",item)
                this.myvalidemail=true;
 
@@ -56,8 +57,8 @@ console.log("erreur1????????")
        });
                      this._userregisterobservable = this.db.usersregister$.subscribe(item => {
            //this.users$ = of(item);
-           if(item[0]) {
-               console.log("erreur1??",item)
+           if(typeof item !== "undefined" && item[0]) {
+               console.log("erreur1??, 1 utilsiateur inscrit",item)
                 this.auth.setLogged(item[0]);
                 this.navCtrl.back();
            }
@@ -90,12 +91,12 @@ async openSmsModal(){
     const { data, role } = await modal.onWillDismiss();
     var form=this.ionicForm.value;
     if (role === 'confirm' && form.mdp === form.mdp2) {
-        
+        alert("ok")
         this.db.createuser(form.email,form.email,form.mdp,form.nom,form.tel)
       this.message = `inscription réussie!`;
       var user=this.db.getuserbyemail(form.email);
       this.auth.connecterutilisateur(form.email);
-      this.myrouter.navigate(["/basketv2"]);
+      this.myrouter.navigate(["/panierv2"]);
       
     }else{
         this.message = `inscription râtée!`;

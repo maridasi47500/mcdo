@@ -33,6 +33,7 @@ arrmenucat: Menucat[] = [];
 arrmenu: Menu[] = [];
 arrmenuitem: Menuitem[] = [];
 usermcdo: User[] = [];
+usermcdo1: User = new User;
 /*
 boissons$: Observable<Menuitem[]> = of([]);
 sauce$: Observable<Menuitem[]> = of([]);
@@ -46,7 +47,10 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
         boissons$ = this.boisson.asObservable();
   private users = new BehaviorSubject(this.usermcdo);
         users$ = this.users.asObservable();
+          private user = new BehaviorSubject(this.usermcdo1);
+        user$ = this.user.asObservable();
           private usersregister = new BehaviorSubject(this.usermcdo);
+          
         usersregister$ = this.usersregister.asObservable();
           private menuitem = new BehaviorSubject(this.arrmenuitem);
         choisirItems$ = this.menuitem.asObservable();
@@ -134,7 +138,32 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
     observer();
     return this.observable;
   }
-  
+  getuserbyemail(email){
+      const observer = async() => {
+          var x = await (this.storage.executeSql("select * from users where email = ? limit 1", [email])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: User[]=[];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            email: res.rows.item(i).email,  
+            mdp: res.rows.item(i).mdp,
+            emailcommercial: res.rows.item(i).emailcommercial,  
+            nom: res.rows.item(i).nom,
+            tel: res.rows.item(i).tel
+            
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.user.next(items[0]);
+    }));
+}
+observer();
+return this.user$;
+  }
     prix1item(typename,value,myid){
 const observer = async() => {
          
@@ -369,37 +398,48 @@ const observer = async() => {
           var x = await (this.storage.executeSql("insert into users (emailcommercial,email,mdp,nom,tel) values (?,?,?,?,?)", [emailcommercial,email,mdp,nom,tel])
     .then(res => {
         //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
-    let items: User[];
-      if (res.rows.length > 0) {
-        for (var i = 0; i < res.rows.length; i++) { 
-         items.push({ 
-            id: res.rows.item(i).id,
-            email: res.rows.item(i).email,  
-            mdp: res.rows.item(i).mdp,
-            nom: res.rows.item(i).nom,
-            tel: res.rows.item(i).tel
-            
-           });
-        }
-      }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
-      this.usersregister.next(items);
+  this.getUsers(email);
+      
     }));
 }
 observer();
 return this.usersregister$;
 }
+  getUsers(email) {
+    const observer = async() => {
+          var x = await (this.storage.executeSql('SELECT * FROM users where email = ?', [email]).then(res => {
+      let items: User[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+          items.push({ 
+            id: res.rows.item(i).id,
+            email: res.rows.item(i).email,  
+            emailcommercial: res.rows.item(i).emailcommercial,  
+            mdp: res.rows.item(i).mdp,
+            nom: res.rows.item(i).nom,
+            tel: res.rows.item(i).tel
+           });
+        }
+      }
+     this.users.next(items);
+    }));
+}
+observer();
+return this.users$;
+    
+  }
 getallusersbyemail(email){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from users where email = ?", [email])
     .then(res => {
         //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
-    let items: User[];
+    let items: User[]= [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
          items.push({ 
             id: res.rows.item(i).id,
             email: res.rows.item(i).email,  
+            emailcommercial: res.rows.item(i).emailcommercial,  
             mdp: res.rows.item(i).mdp,
             nom: res.rows.item(i).nom,
             tel: res.rows.item(i).tel
@@ -419,12 +459,13 @@ const observer = async() => {
           var x = await (this.storage.executeSql("select * from users where email = ? and mdp = ?", [email,mdp])
     .then(res => {
         //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
-    let items: User[];
+    let items: User[]=[];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
          items.push({ 
             id: res.rows.item(i).id,
             email: res.rows.item(i).email,  
+            emailcommercial: res.rows.item(i).emailcommercial,  
             mdp: res.rows.item(i).mdp,
             nom: res.rows.item(i).nom,
             tel: res.rows.item(i).tel
@@ -432,6 +473,7 @@ const observer = async() => {
            });
         }
       }
+      console.log(items, email,mdp)
       //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.users.next(items);
     }));

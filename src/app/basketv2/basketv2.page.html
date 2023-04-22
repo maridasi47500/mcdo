@@ -240,15 +240,61 @@
                   
               </div>
           </div>
-              
-              
-          <div class="identifiant"><h2>Identifiant</h2>
+          <div *ngIf="myvalidemail" class="total">
+              <h3>
+montant total</h3>
               <hr><!-- comment -->
-              <form  [formGroup]="ionicForm">
-                      <input type="hidden" id="myemail" formControlName="myemail" placeholder="nom d'utilisateur"/>
+              
+              <select><option>Utiliser le code de campagne</option></select>
+              <table>
+                  <tr>
+                      <td>la date de livraison
+</td>
+
+<td></td>
+                  </tr>
+                                
+                                    <tr>
+                      <td>le type de livraison
+</td>
+
+<td><input type="checkbox" name="typelivraison" id="typelivraison" value="1"/><label for="typelivraison">je veux une livraison sans contact</label></td>
+
+                  </tr>
+                                    <tr>
+                      <td>type de paiement
+</td>
+
+<td>
+    <select><option>choisir</option></select>
+    
+    
+</td>
+
+
+                  </tr>
+                      <tr>
+                      <td>adresse de livraison
+</td>
+
+<td></td>
+                  </tr>
+                      <tr>
+                      <td>bon de commande
+</td>
+
+<td></td>
+                  </tr>
+              </table>
+          </div>
+              
+          <div *ngIf="!myvalidemail" class="identifiant"><h2>Identifiant</h2>
+              <hr><!-- comment -->
+              <div [formGroup]="ionicForm">
+                  <ion-input hidden="true" id="myemail" formControlName="myemail" placeholder="nom d'utilisateur"></ion-input>
 
               <ion-item>
-    <ion-input (change)="editmodel" formControlName="email" placeholder="nom d'utilisateur"></ion-input>
+    <ion-input (change)="editmodel()" formControlName="email" placeholder="nom d'utilisateur"></ion-input>
   </ion-item>
               <div style="color: red; padding-top: 0.2rem" *ngIf="submitted"> 
                    {{ionicForm.get('email').hasError('required') ? '    Email requis' :""}}
@@ -262,7 +308,7 @@
 <div style="color: red; padding-top: 0.2rem" *ngIf="submitted">
           {{ionicForm.get('mdp').hasError('required') ? '    Mot de passe requis' : ''}}
 </div>
-</form>
+</div>
               <a href="" (click)="forgetpassword();" class="oublie">J'ai oublié mon mot de passe</a>
                 
                   <ion-button 
@@ -273,7 +319,7 @@
       (click)="connexion()">Login</ion-button>
                 <ion-button (click)="sinscrire();" class="sinscrire">s'inscrire</ion-button>
                 <hr>
-                <ion-button class="sansmembre">continuer sans être membre</ion-button>
+                <ion-button (click)="continuersansmembre();" class="sansmembre">continuer sans être membre</ion-button>
 
           </div>
         
