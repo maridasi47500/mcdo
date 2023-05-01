@@ -1,14 +1,15 @@
+<div id="mycontent"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
 <p color="yellow">INFORMATIONS DE LIVRAISON</p>
 
 <p>La protection de vos données personnelles et de votre vie privée est importante pour nous. Lisez notre texte de clarification concernant la manière dont vos données personnelles sont traitées.</p>
 
 
-
-<ion-input placeholder="Entrez la rue ou la rue"></ion-input>
-
-
-<ion-button color="blue">par adresse uniquement</ion-button>
-   <form id="monformulaire" [formGroup]="ionicForm">
+<div id="maville">
+<ion-input id="ville" placeholder="Entrez la rue ou la rue"></ion-input>
+</div>
+  <div id="map" class="map"></div>
+<ion-button color="blue" (click)="chercher()">par adresse uniquement</ion-button>
+   <form id="monformulaire" [formGroup]="ionicForm" *ngIf="adresstrouvee">
                           <div class="col1">
                   <div class="champ champ-nom">
                       <input formControlName="nom" id="nom" placeholder="nom et surnom" type="text" value=""/>
@@ -100,3 +101,6 @@ J'accepte de recevoir des messages électroniques commerciaux (SMS, e-mail et au
                                <ion-button class="enregistrer">Sauvegarder</ion-button>
                           </div>
                       </form>
+<div id="userlon" hidden></div>
+<div id="userlat" hidden></div>
+</div>

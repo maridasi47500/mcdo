@@ -245,13 +245,26 @@
 montant total</h3>
               <hr><!-- comment -->
               
-              <select><option>Utiliser le code de campagne</option></select>
+              <ion-accordion-group #accordionGroup>
+  <ion-accordion value="first">
+    <ion-item slot="header" color="light">
+      <ion-label>envoyer le code de campagne</ion-label>
+    </ion-item>
+      <div class="ion-padding" slot="content"><input name="codecampagne" placeholder="code de campagne"/>
+          <br><!-- comment -->
+          <button>envoyer</button>
+      </div>
+  </ion-accordion>
+ 
+</ion-accordion-group>
+
+
               <table>
                   <tr>
                       <td>la date de livraison
 </td>
 
-<td></td>
+<td><input type="checkbox" name="now"/>Immédiatement (~30 minutes)</td>
                   </tr>
                                 
                                     <tr>
@@ -266,7 +279,26 @@ montant total</h3>
 </td>
 
 <td>
-    <select><option>choisir</option></select>
+    <select><option>choisir</option>
+      <optgroup label="paiement en ligne">
+        <option>mastercard</option>
+        <option>bkm express</option>
+        <option>sodexo mobile</option>
+    </optgroup>
+    <optgroup label="paiement à mcdo">
+        <option>Espèces
+
+
+
+
+
+</option>
+        <option>Carte de crédit</option>        
+                <option>multiréseau</option>
+                        <option>SmartTicket</option>
+        <option>Définir l'entreprise</option>
+    </optgroup>
+    </select>
     
     
 </td>
@@ -341,6 +373,5 @@ montant total</h3>
      
 </div>
 
- 
 
 

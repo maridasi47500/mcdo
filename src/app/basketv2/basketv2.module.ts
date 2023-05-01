@@ -6,7 +6,8 @@ import { IonicModule } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
 
 import { Basketv2PageRoutingModule } from './basketv2-routing.module';
-
+import { Http } from '@angular/http';
+import {HttpModule} from '@angular/http';
 import { Basketv2Page } from './basketv2.page';
 import { NavController, NavParams } from '@ionic/angular';
 import { RouterOutlet, ActivationStart } from '@angular/router';
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     FormsModule,
     IonicModule,
     Basketv2PageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
     declarations: [Basketv2Page],
  providers: [NavParams,RouterOutlet,FormBuilder,NativeStorage]

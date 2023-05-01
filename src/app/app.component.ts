@@ -6,7 +6,7 @@ import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { NavController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { environment } from '../environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',

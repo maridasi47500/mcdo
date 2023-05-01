@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { Http } from '@angular/http';
 
 import { ModallocalisationPageRoutingModule } from './modallocalisation-routing.module';
 
@@ -17,7 +18,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     ReactiveFormsModule,
     ModallocalisationPageRoutingModule
   ],
-   providers: [FormBuilder],
+   providers: [FormBuilder,Http],
   declarations: [ModallocalisationPage]
 })
 export class ModallocalisationPageModule {}

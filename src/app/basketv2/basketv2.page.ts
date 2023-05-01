@@ -1,3 +1,5 @@
+import {  ViewChild } from '@angular/core';
+import { IonAccordionGroup } from '@ionic/angular';
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router,ParamMap} from '@angular/router';
 import { BaseDatosLocalProvider } from './../../../services/base-donnees-locale';
@@ -22,7 +24,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./basketv2.page.scss'],
 })
 export class Basketv2Page implements OnInit {
-
+  @ViewChild('accordionGroup', { static: true }) accordionGroup: IonAccordionGroup;
 private myid;
 private menuprix:any;
 private menuid:any;
