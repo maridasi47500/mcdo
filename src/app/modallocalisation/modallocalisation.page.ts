@@ -7,6 +7,8 @@ import { Map, tileLayer, marker, icon } from 'leaflet';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
+
 @Component({
   selector: 'app-modallocalisation',
   templateUrl: './modallocalisation.page.html',
@@ -19,6 +21,17 @@ map:Map;
 addr={};
 startPos;
 userlat;
+ionicForm=new FormGroup({
+      ville: new FormControl(),
+      bsa: new FormControl(),
+       porte1: new FormControl(),
+       email: new FormControl(),
+       emailcommercial: new FormControl(),
+       lutexte: new FormControl(),
+        porte2: new FormControl(),
+         directions: new FormControl(),
+      nom: new FormControl()
+  });
 userlon;
 @ViewChild('map') mapElement;
   constructor(private modalCtrl: ModalController,public http: Http,private http1: HttpClient,
@@ -54,6 +67,7 @@ userlon;
                 this.userlat = data[0]['lat'];
                 this.userlon = data[0]['lon'];
                 //alert(this.userlat+this.userlon)
+                var lieu={ville: data[0]['address']['town']}
                 if(this.map) {
   this.map.remove();
 }
