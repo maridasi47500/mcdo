@@ -51,10 +51,14 @@ async ngOnInit(){
     async getOrder() {
         return await this.storage.get("macommande") ? true : false;
     }
-    public setOrder(order) {
-         const func=async() =>{
+    async setOrder(order) {
+        console.log("content order:", order)
+        try{
+         const func=async(order) =>{
              console.log("await my order");
         let myorder=await this.local('macommande');
+        console.log("ko")
+        try{
         console.log("apercu copmmande", myorder)
         if (!myorder) {
             myorder=[];
@@ -62,13 +66,20 @@ async ngOnInit(){
 
         
         myorder.push(order);
-        if (!!myorder) {
+        if (myorder && myorder!=[]) {
             this.storage.set('macommande',myorder); // store session data
             this.storage.set('ordered',true);
         }        
+        }catch(e){
+            console.log(e,"my rror")
+        }
         this.ordered.next(true);
          }
-         func();
+         var x = await func(order);
+        }catch(e){
+        console.log(e)
+        }
+         
          console.log("fin my order")
     }
     public setLogged(user) {

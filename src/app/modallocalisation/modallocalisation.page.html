@@ -24,7 +24,7 @@
     <ion-input type="tel" placeholder="888-888-8888"></ion-input>
   </ion-item>
                                        <div class="champ champ-email">
-                      <input formControlName="email" id="email" placeholder="email" type="text" value=""/>
+                      <input formControlName="emailcommercial" id="email" placeholder="email" type="text" value=""/>
                   
                   <label class="label">
                   email
@@ -97,8 +97,8 @@ J'accepte de recevoir des messages électroniques commerciaux (SMS, e-mail et au
                           
                           </div>
                           <div class="actions"><!-- comment -->
-                              <ion-button class="annuler">Annuler</ion-button>
-                               <ion-button class="enregistrer">Sauvegarder</ion-button>
+                              <ion-button (click)="retour()" class="annuler">Annuler</ion-button>
+                               <ion-button (click)="continuerachat()" class="enregistrer">Sauvegarder</ion-button>
                           </div>
                       </form>
 <div id="userlon" hidden></div>

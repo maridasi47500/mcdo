@@ -56,6 +56,7 @@ listsauce:any;
 listextrasauce:any;
 private _userobservable: Subscription;
 private _dbobservable: Subscription;
+myaddress:any;
 users$: Observable<User[]> = of([]);
 public data: any;
 sommedesprix:object = {};
@@ -103,7 +104,15 @@ forgetpassword(){
         const modal = await this.modalCtrl.create({
       component: ModallocalisationPage,
     });
-    modal.present();
+    
+    modal.onDidDismiss()
+    .then((data)=>{
+        const address=data['data'];
+        console.log("MY ADDRESS:",address)
+        this.myaddress=address;
+        this.myvalidemail=true;
+    })
+    return await modal.present();
 
 
 

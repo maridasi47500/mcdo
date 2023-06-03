@@ -170,8 +170,10 @@ this.cancelPanier();
 //        this.nativeStorage.setItem('macommande',items)
 //    } else {
 //    }
-    
-    this.auth.setOrder(this.ionicForm.value);
+    var f = async() =>{
+    await this.auth.setOrder(myorder);
+    };
+    await f();
     this.myrouter.navigate(["/panierv2"]);
     console.log("ok navigate");
     //document.getElementById('basketv2').click();

@@ -21,22 +21,40 @@ map:Map;
 addr={};
 startPos;
 userlat;
-ionicForm=new FormGroup({
-      ville: new FormControl(),
-      bsa: new FormControl(),
-       porte1: new FormControl(),
-       email: new FormControl(),
-       emailcommercial: new FormControl(),
-       lutexte: new FormControl(),
-        porte2: new FormControl(),
-         directions: new FormControl(),
-      nom: new FormControl()
+ionicForm:FormGroup=this.formBuilder.group({
+      ville: [null,Validators.required],
+      bsa: [null,Validators.required],
+       porte1: [null,Validators.required],
+       email: [null,Validators.required],
+       emailcommercial: [null],
+       lutexte: [null,Validators.required],
+        porte2: [null,Validators.required],
+         directions: [null,Validators.required],
+      nom: [null,Validators.required]
   });
 userlon;
 @ViewChild('map') mapElement;
-  constructor(private modalCtrl: ModalController,public http: Http,private http1: HttpClient,
+  constructor(private formBuilder: FormBuilder,private modalCtrl: ModalController,public http: Http,private http1: HttpClient,
               public plt: Platform,
               public router: Router) { }
+              
+              getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = this.deg2rad(lat2-lat1);  // this.deg2rad below
+  var dLon = this.deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
 
   ngOnInit() {
       this.geoloc();
@@ -45,7 +63,24 @@ userlon;
       this.addr["2"] = {"title":"McDonald's Cayenne", "address":"Avenue Galmot Cayenne GF 97300, Av. Galmot, French Guiana","lat":"4.93910684210185","lon":"-52.331204461198425"};
       this.initMap(Object.values(this.addr));
   }
+  continuerachat(){
+      if (this.ionicForm.valid){
+          if (this.proxi(this.userlat,this.userlon)){
+          alert("formulaire bien rempli ici renvoyer donnees formulaire rempli pour continuer l'achat+")
+          //this.myvalidemail=true;
+          this.confirm();
+          }else{
+              alert("il n'a pas de mcdo assez proche de cette adresse")
+          }
+     
+          
+      }
+  }
+  retour(){
+      this.cancel();
+  }
     proxi(lat,lon){
+        return Object.values(this.addr).some(x=>this.getDistanceFromLatLonInKm(parseFloat(lat), parseFloat(lon),x['lat'],x['lon']) < 30);
         
     }
     adresstrouvee=false;
@@ -68,6 +103,7 @@ userlon;
                 this.userlon = data[0]['lon'];
                 //alert(this.userlat+this.userlon)
                 var lieu={ville: data[0]['address']['town']}
+                  this.ionicForm=this.formBuilder.group({ville:[data[0]['address']['town'], Validators.required]});
                 if(this.map) {
   this.map.remove();
 }
@@ -148,7 +184,7 @@ tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   }
   confirm() {
 
-    return this.modalCtrl.dismiss(null , 'confirm');
+    return this.modalCtrl.dismiss(this.ionicForm.value , 'confirm');
   }
   
 }
