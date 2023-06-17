@@ -8,6 +8,7 @@ import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
+import { InfolocalisationPage } from '../infolocalisation/infolocalisation.page';
 
 @Component({
   selector: 'app-modallocalisation',
@@ -21,6 +22,19 @@ map:Map;
 addr={};
 startPos;
 userlat;
+
+  async openLocModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModallocalisationPage,
+    });
+    modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+     console.log( `Hello, ${data}!`);
+    }
+  }
 ionicForm:FormGroup=this.formBuilder.group({
       ville: [null,Validators.required],
       bsa: [null,Validators.required],
@@ -145,6 +159,7 @@ tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     };
      function geoFail(){ // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
         console.log("refus");
+        this.openLocalModal();
     };
    
     // La ligne ci-dessous cherche la position de l'utilisateur et déclenchera la demande d'accord

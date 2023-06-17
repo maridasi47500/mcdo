@@ -15,11 +15,12 @@ import { ModalPageModule } from './hamburger/modal.hamburger.module';
 import { CommonModule } from "@angular/common";
 import { HamburgerPageModule } from  './hamburger/hamburger.module';  
 import { Storage } from '@ionic/storage-angular';
+import { InfolocalisationPage } from './infolocalisation/infolocalisation.page';
 
 @NgModule({
     
   declarations: [AppComponent],
-  imports: [HamburgerPageModule, ModalPageModule, CommonModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [HamburgerPageModule, ModalPageModule,InfolocalisationPage, CommonModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [ SQLite,Storage,FormBuilder,
     SQLitePorter,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
