@@ -20,8 +20,8 @@ import { InfolocalisationPage } from './infolocalisation/infolocalisation.page';
 @NgModule({
     
   declarations: [AppComponent],
-  imports: [HamburgerPageModule, ModalPageModule,InfolocalisationPage, CommonModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
-  providers: [ SQLite,Storage,FormBuilder,
+  imports: [HamburgerPageModule, ModalPageModule,CommonModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  providers: [ SQLite,Storage,FormBuilder,InfolocalisationPage,
     SQLitePorter,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

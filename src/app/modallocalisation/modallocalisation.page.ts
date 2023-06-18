@@ -5,6 +5,8 @@ import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Map, tileLayer, marker, icon } from 'leaflet';
 import { Http } from '@angular/http';
+import { NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
@@ -48,7 +50,7 @@ ionicForm:FormGroup=this.formBuilder.group({
   });
 userlon;
 @ViewChild('map') mapElement;
-  constructor(private formBuilder: FormBuilder,private modalCtrl: ModalController,public http: Http,private http1: HttpClient,
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder,private modalCtrl: ModalController,public http: Http,private http1: HttpClient,
               public plt: Platform,
               public router: Router) { }
               
@@ -80,11 +82,20 @@ deg2rad(deg) {
   continuerachat(){
       if (this.ionicForm.valid){
           if (this.proxi(this.userlat,this.userlon)){
-          alert("formulaire bien rempli ici renvoyer donnees formulaire rempli pour continuer l'achat+")
+          alert("formulaire bien rempli ici renvoyer donnees formulaire rempli pour continuer l'achat+");
           //this.myvalidemail=true;
           this.confirm();
           }else{
-              alert("il n'a pas de mcdo assez proche de cette adresse")
+              //alert("il n'a pas de mcdo assez proche de cette adresse")
+              let navigationExtras: NavigationExtras = {
+                queryParams: {
+                    mymessage: "il n'a pas de mcdo assez proche de cette adresse",
+                    mybtn: "faire demi-tour",
+                    myaction1: "/panierv2"
+                }
+            };
+            this.navCtrl.navigateForward(['/addressv2/addressstatus'], navigationExtras);
+            this.cancel()
           }
      
           

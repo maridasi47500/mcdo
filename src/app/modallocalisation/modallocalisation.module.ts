@@ -7,6 +7,7 @@ import { Http } from '@angular/http';
 
 import { ModallocalisationPageRoutingModule } from './modallocalisation-routing.module';
 import { Basketv2Page } from '../basketv2/basketv2.page';
+import { InfolocalisationPage } from '../infolocalisation/infolocalisation.page';
 
 import { ModallocalisationPage } from './modallocalisation.page';
 import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
@@ -19,7 +20,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     ReactiveFormsModule,
     ModallocalisationPageRoutingModule
   ],
-   providers: [FormBuilder,Http,Basketv2Page],
+   providers: [FormBuilder,Http,Basketv2Page,InfolocalisationPage],
   declarations: [ModallocalisationPage]
 })
 export class ModallocalisationPageModule {}

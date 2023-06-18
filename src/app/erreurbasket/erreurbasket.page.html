@@ -1,6 +1,10 @@
-<div class="div1">
-<p>Nous n'avons pas de restaurant desservant l'adresse que vous avez choisie.</p>
+<div class="ion-page" id="main-content">
+    <ion-button class="erreurbtn" color="red">X</ion-button>
+    <ion-card class="mycard">
+        
+        <br>
+<p>{{message}}</p>
 
-<ion-button color="green">faire demi-tour</ion-button>
-
+<ion-button (click)="myaction()" class="btn" color="green">{{mybtn}}</ion-button>
+    </ion-card>
 </div>
