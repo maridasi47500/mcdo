@@ -16,10 +16,10 @@ import { CommonModule } from "@angular/common";
 import { HamburgerPageModule } from  './hamburger/hamburger.module';  
 import { Storage } from '@ionic/storage-angular';
 import { InfolocalisationPage } from './infolocalisation/infolocalisation.page';
-
+import { PopovermenuPage } from './popovermenu/popovermenu.page'
 @NgModule({
     
-  declarations: [AppComponent],
+  declarations: [AppComponent,PopovermenuPage],
   imports: [HamburgerPageModule, ModalPageModule,CommonModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [ SQLite,Storage,FormBuilder,InfolocalisationPage,
     SQLitePorter,

@@ -12,8 +12,10 @@ export class AuthService implements OnInit {
 
     private loggedIn = new BehaviorSubject<boolean>(false);
     private ordered = new BehaviorSubject<boolean>(false);
+    private myorder = new BehaviorSubject<object>([]);
         loggedIn$ = this.loggedIn.asObservable();
         ordered$ = this.ordered.asObservable();
+        myorder$ = this.myorder.asObservable();
     constructor(private storage: Storage) {
         this.isServiceReady.next(true);
         }
@@ -74,6 +76,7 @@ async ngOnInit(){
             console.log(e,"my rror")
         }
         this.ordered.next(true);
+        this.myorder.next(myorder);
          }
          var x = await func(order);
         }catch(e){
@@ -90,6 +93,7 @@ async ngOnInit(){
     }
     emptybasket() {
         this.ordered.next(false);
+        this.myorder.next([]);
     }
     logout() {
         this.loggedIn.next(false);

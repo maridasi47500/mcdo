@@ -24,7 +24,7 @@ map:Map;
 addr={};
 startPos;
 userlat;
-
+displayname;
   async openLocModal() {
     const modal = await this.modalCtrl.create({
       component: ModallocalisationPage,
@@ -123,6 +123,7 @@ deg2rad(deg) {
         next: data => {
             if(data && data[0]){
                 console.log(data[0]);
+                this.displayname=data[0]["display_name"];
                 this.adresstrouvee=true;
                 this.userlat = data[0]['lat'];
                 this.userlon = data[0]['lon'];
@@ -209,8 +210,9 @@ tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     });
   }
   confirm() {
-
-    return this.modalCtrl.dismiss(this.ionicForm.value , 'confirm');
+    var aaa=this.ionicForm.value;
+    aaa["display_name"]=this.displayname;
+    return this.modalCtrl.dismiss(aaa , 'confirm');
   }
   
 }

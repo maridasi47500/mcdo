@@ -227,8 +227,12 @@
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
+        <ion-button (click)="presentPopover($event)">Mes commandes</ion-button>
       </ion-buttons>
       <ion-title>Menu</ion-title>
+      
+
+
     </ion-toolbar>
   </ion-header>
   <div class="ion-text-center ion-padding">
@@ -237,7 +241,11 @@
         
           <div class="monpanier"><h2>Mon panier</h2><hr>
               <div class="card">
-                  
+                  <div *ngIf="ordered">Vous avez commandé : voici votre commande juset ci dessous:
+                  <div *ngFor="let o of myorder"><!-- comment -->
+                      burger id {{o.myid1}}
+                  </div>
+                      </div>
               </div>
           </div>
           <div *ngIf="myvalidemail" class="total">
@@ -309,7 +317,7 @@ montant total</h3>
                       <td>adresse de livraison
 </td>
 
-<td></td>
+<td>{{displayname}}</td>
                   </tr>
                       <tr>
                       <td>bon de commande

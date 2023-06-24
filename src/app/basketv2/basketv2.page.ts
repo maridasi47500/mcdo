@@ -18,6 +18,9 @@ import { FormGroup, FormBuilder, Validators,FormControl } from "@angular/forms";
 import { ModallocalisationPage } from '../modallocalisation/modallocalisation.page';
 import { ModalController } from '@ionic/angular';
 
+import { PopoverController } from '@ionic/angular';
+
+import { PopovermenuPage } from '../popovermenu/popovermenu.page';
 @Component({
   selector: 'app-basketv2',
   templateUrl: './basketv2.page.html',
@@ -66,11 +69,22 @@ isLoggedin$:Observable<Boolean>=of(false);
     article:any;
     isLoggedin=this.authService.isLoggedIn;
     userObject:any;
+    displayname;
     //private nativeStorage: NativeStorage
-  constructor(private modalCtrl: ModalController, private db:BaseDatosLocalProvider, private formBuilder:FormBuilder, private storage: Storage,
+  constructor(public popoverController: PopoverController, private modalCtrl: ModalController, private db:BaseDatosLocalProvider, private formBuilder:FormBuilder, private storage: Storage,
     private authService: AuthService,private myrouter:Router,public plt: Platform,private route : ActivatedRoute) { 
         
                               
+  }
+    async presentPopover(e: Event) {
+    const popover = await this.popoverController.create({
+      component: PopovermenuPage,
+      event: e,
+    });
+
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
   }
   ionViewDidEnter(){
    this.isLoggedin=this.authService.isLoggedIn;
@@ -111,6 +125,7 @@ forgetpassword(){
         console.log("MY ADDRESS:",address)
         this.myaddress=address;
         this.myvalidemail=true;
+        this.displayname=address["display_name"];
     })
     return await modal.present();
 
@@ -126,6 +141,7 @@ sinscrire(){
 myvalidemail=false;
 loggedin=false;
 ordered=false;
+myorder;
   ngOnInit() {
       console.log("on init bazsket v2")
       try {
@@ -143,6 +159,11 @@ ordered=false;
                    console.log("pas de commande");
             this.myrouter.navigate(["/produitv2"])
         }
+            });
+        this.authService.myorder$.subscribe(x=>{
+            console.log("MA commande : list : ", x)
+            this.myorder = x;
+               
             });
         
         console.log("is looged in",this.ordered,this.loggedin)

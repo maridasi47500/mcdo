@@ -185,6 +185,10 @@ const routes: Routes = [
   {
     path: 'infolocalisation',
     loadChildren: () => import('./infolocalisation/infolocalisation.module').then( m => m.InfolocalisationPageModule)
+  },
+  {
+    path: 'popovermenu',
+    loadChildren: () => import('./popovermenu/popovermenu.module').then( m => m.PopovermenuPageModule)
   }
 
  
