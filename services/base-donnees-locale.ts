@@ -5,6 +5,7 @@ import { Item } from './item';
 import { Cat } from './cat';
 import { Menucat } from './../src/app/services/menucat';
 import { Menu } from './../src/app/services/menu';
+import { Order } from './../src/app/services/order';
 import { Menuitem } from './../src/app/services/menuitem';
 import { User } from './../src/app/services/user';
 
@@ -33,6 +34,7 @@ arrmenucat: Menucat[] = [];
 arrmenu: Menu[] = [];
 arrmenuitem: Menuitem[] = [];
 usermcdo: User[] = [];
+ordermcdo: Order = new Order;
 usermcdo1: User = new User;
 /*
 boissons$: Observable<Menuitem[]> = of([]);
@@ -56,6 +58,8 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
         choisirItems$ = this.menuitem.asObservable();
   private sauce = new BehaviorSubject(this.arrmenuitem);
         sauce$ = this.sauce.asObservable();
+  private macommande = new BehaviorSubject(this.ordermcdo);
+        macommande$ = this.macommande.asObservable();
           private accompagnement = new BehaviorSubject(this.arrmenuitem);
         accompagnement$ = this.accompagnement.asObservable();
           private promotion = new BehaviorSubject(this.arrmenuitem);
@@ -137,6 +141,8 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
     // Call async function & return observable
     observer();
     return this.observable;
+  }
+  mynextcommande(listorders,neworder){
   }
   getuserbyemail(email){
       const observer = async() => {
@@ -234,6 +240,46 @@ const observer = async() => {
     observer()
     return this.prixitemsnb$;
 }
+ listsaucesFilled(array){
+const observer = async() => {
+            var myids=array.map(x=>x[0]);
+            var mynbs=array.map(x=>Number(x[1]))
+            //const flipped=  array.map(([key, value]) => [value, key]);
+            var mynb={};
+            for (var z = 0; z < array.length ;z++){
+             mynb[array[z][0]] = array[z][1];   
+            }
+            console.log(mynb,"my array")
+            var paspremier=false;
+            var myidssql="";
+            for (var i = 0; i < myids.length; i++) {
+                if (paspremier) {
+                    myidssql+=","
+                }
+                myidssql+="?";
+                paspremier=true;
+            }
+          var x = await (this.storage.executeSql("select * from menuitems where id in ("+myidssql+")", myids)
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        let items=[];
+ if (res.rows.length > 0) {
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      for (var i = 0; i < res.rows.length; i++) {
+          console.log("prix:", res.rows.item(0).prix)
+          console.log("ID:", res.rows.item(0).id)
+          console.log("nombre:",mynb[res.rows.item(0).id])
+          console.log("prix < nombre:",res.rows.item(0).prix*mynb[res.rows.item(0).id])
+      items.push({name:res.rows.item(0).name,nb: mynb[res.rows.item(0).id]})
+      }
+        
+      this.mylistsauce.next(items);
+ }
+    }));
+}
+    observer()
+    return this.mylistsauceFilled$;
+}
  listextrasauces(array){
 const observer = async() => {
             var myids=array.map(x=>x[0]);
@@ -273,6 +319,46 @@ const observer = async() => {
 }
     observer()
     return this.prixitemsnb$;
+}
+ listextrasaucesFilled(array){
+const observer = async() => {
+            var myids=array.map(x=>x[0]);
+            var mynbs=array.map(x=>Number(x[1]))
+            //const flipped=  array.map(([key, value]) => [value, key]);
+            var mynb={};
+            for (var z = 0; z < array.length ;z++){
+             mynb[array[z][0]] = array[z][1];   
+            }
+            console.log(mynb,"my array")
+            var paspremier=false;
+            var myidssql="";
+            for (var i = 0; i < myids.length; i++) {
+                if (paspremier) {
+                    myidssql+=","
+                }
+                myidssql+="?";
+                paspremier=true;
+            }
+          var x = await (this.storage.executeSql("select * from menuitems where id in ("+myidssql+")", myids)
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        let items=[];
+ if (res.rows.length > 0) {
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      for (var i = 0; i < res.rows.length; i++) {
+          console.log("prix:", res.rows.item(0).prix)
+          console.log("ID:", res.rows.item(0).id)
+          console.log("nombre:",mynb[res.rows.item(0).id])
+          console.log("prix < nombre:",res.rows.item(0).prix*mynb[res.rows.item(0).id])
+      items.push({name:res.rows.item(0).name,nb: mynb[res.rows.item(0).id]})
+      }
+        
+      this.mylistextrasauce.next(items);
+ }
+    }));
+}
+    observer()
+    return this.mylistextrasauceFilled$;
 }
   prixitemsnb(typename,array,myid){
 const observer = async() => {

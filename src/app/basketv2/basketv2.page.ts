@@ -71,8 +71,10 @@ isLoggedin$:Observable<Boolean>=of(false);
     userObject:any;
     displayname;
     //private nativeStorage: NativeStorage
-  constructor(public popoverController: PopoverController, private modalCtrl: ModalController, private db:BaseDatosLocalProvider, private formBuilder:FormBuilder, private storage: Storage,
-    private authService: AuthService,private myrouter:Router,public plt: Platform,private route : ActivatedRoute) { 
+  constructor(public popoverController: PopoverController, private modalCtrl: ModalController, 
+  private db:BaseDatosLocalProvider, private formBuilder:FormBuilder, private storage: Storage,
+    private authService: AuthService,private myrouter:Router,public plt: Platform,
+    private route : ActivatedRoute) { 
         
                               
   }
@@ -157,7 +159,7 @@ myorder;
             console.log("a commandé ? ", x,this.ordered,!this.ordered,typeof x === "undefined" )
                if (typeof x === "undefined" || !this.ordered) {
                    console.log("pas de commande");
-            this.myrouter.navigate(["/produitv2"])
+            this.myrouter.navigate(["/produitv2"]);
         }
             });
         this.authService.myorder$.subscribe(x=>{
