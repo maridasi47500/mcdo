@@ -126,7 +126,7 @@ console.log('hgrt kdghl');
       //this.othermodal.ngOnDestroy();
     }
   }
-async alleraupanier1($evt) {
+alleraupanier1($evt) {
     //alert('ondestroy modal ');
     console.log("aller à panier");
     var myinput;
@@ -170,10 +170,9 @@ this.cancelPanier();
 //        this.nativeStorage.setItem('macommande',items)
 //    } else {
 //    }
-    var f = async() =>{
-    await this.auth.setOrder(myorder);
-    };
-    await f();
+
+this.auth.setOrder(myorder);
+   alert("ok finish trier order")
     this.myrouter.navigate(["/panierv2"]);
     console.log("ok navigate");
     //document.getElementById('basketv2').click();

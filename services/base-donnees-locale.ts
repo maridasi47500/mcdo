@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Flavor } from './flavor';
@@ -14,7 +15,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { Storage } from '@ionic/storage-angular';
-export interface Myitem {
+import {AuthService} from "./authservice";
+export interface Myitem {   
     id:number;
     cat_id:number;
     name:string;
@@ -47,6 +49,10 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
 */
   private boisson = new BehaviorSubject(this.arrmenuitem);
         boissons$ = this.boisson.asObservable();
+  private boisson1 = new BehaviorSubject(this.arrmenuitem);
+        boisson1$ = this.boisson1.asObservable();
+  private boisson2 = new BehaviorSubject(this.arrmenuitem);
+        boisson2$ = this.boisson2.asObservable();
   private users = new BehaviorSubject(this.usermcdo);
         users$ = this.users.asObservable();
           private user = new BehaviorSubject(this.usermcdo1);
@@ -239,6 +245,138 @@ const observer = async() => {
 }
     observer()
     return this.prixitemsnb$;
+}
+thishash;
+  async myhash(hash){
+      try{
+    
+    const x= async()=>{
+    var myvalues,res;
+     let items: Menuitem[] = [];
+
+    try{
+        myvalues=JSON.parse(hash["sauce"]).map(x=>x[0])
+    
+    res=await this.storage.executeSql("select * from menuitems where id in(?)", myvalues);
+
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+         items=[];
+ if (res.rows.length > 0) {
+     alert(res.rows.length);
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      hash["sauce"] = items;
+ }
+    
+    }catch(e){
+        myvalues="0";
+    }
+    console.log("hash apres requete 1", hash);
+     try{
+        myvalues=JSON.parse(hash["extrasauce"]).map(x=>x[0])
+   
+       res=await this.storage.executeSql("select * from menuitems where id in(?)", myvalues);
+    
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        let items=[];
+ if (res.rows.length > 0) {
+  items= [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      hash["extrasauce"]=items;
+ }
+    
+     }catch(e){
+        myvalues="0";
+    }
+        console.log("hash apres requete 2", hash);
+    try{
+        myvalues=JSON.parse(hash["boisson1"]);
+    
+    res=await this.storage.executeSql("select * from menuitems where id = ?", [myvalues]);
+    
+        alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        items=[];
+ if (res.rows.length > 0) {
+ let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+          alert(String(res.rows.length)+"cocalight");
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      hash["boisson1"]=items[0];
+      
+ }
+ alert(res+ "tous les lenu items"+JSON.stringify(hash));
+    
+    }catch(e){
+        myvalues="0";
+    }
+        console.log("hash apres requete 3", hash);
+     try{
+        myvalues=JSON.parse(hash["boisson2"]);
+   
+     res=await this.storage.executeSql("select * from menuitems where id in(?)", myvalues);
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        items=[];
+ if (res.rows.length > 0) {
+ let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      hash["boisson2"]=items[0];
+ }
+     }catch(e){
+        myvalues="0";
+    }
+        console.log("hash apres requete 4", hash);
+     //this.authservice.myitem=hash;
+    }
+    var y = async() =>{
+    await x();
+    }
+    var yy=await y();
+    alert("value au départ"+String(hash));
+      }catch(e){
+          alert(e.stack)
+      }
 }
  listsaucesFilled(array){
 const observer = async() => {
@@ -811,6 +949,55 @@ const observer = async() => {
     observer()
     return this.promotiondessert$;
 }
+getboisson1(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      console.log(items);
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.boisson1.next(items);
+    }));
+}
+    observer()
+    return this.boisson1$;
+}
+getboisson2(id){
+const observer = async() => {
+          var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
+    .then(res => {
+        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+    let items: Menuitem[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      this.boisson2.next(items);
+    }));
+}
+    observer()
+    return this.boisson2$;
+}
 getboisson(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
@@ -960,7 +1147,7 @@ const observer = async() => {
     private platform: Platform, 
     private sqlite: SQLite, 
     private httpClient: HttpClient,
-    private sqlPorter: SQLitePorter,
+    private sqlPorter: SQLitePorter
   ) {
       
       
@@ -1243,6 +1430,33 @@ this.getItems();
   observer();
     return this.menucatFound$;
   }
+      getMenusById(id){
+        const observer = async() => {
+     var x = await(this.storage.executeSql('SELECT * FROM menus where id = ?', [id]).then(res => {
+      let menus: Menu[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+          menus.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            myorder: res.rows.item(i).myorder,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).prix,
+            url: res.rows.item(i).url,
+            cat_id: res.rows.item(i).cat_id,
+            type: res.rows.item(i).cat_id,
+            description: res.rows.item(i).description
+           });
+        }
+      }
+      
+      this.menusList.next(menus);
+    }));
+        }
+        observer()
+        return this.menusFound$;
+  }
+
     getMenusByMenuCatId(id){
         const observer = async() => {
      var x = await(this.storage.executeSql('SELECT * FROM menus where cat_id = ?', [id]).then(res => {

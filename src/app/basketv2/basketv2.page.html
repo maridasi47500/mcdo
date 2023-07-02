@@ -243,7 +243,8 @@
               <div class="card">
                   <div *ngIf="ordered">Vous avez commandé : voici votre commande juset ci dessous:
                   <div *ngFor="let o of myorder"><!-- comment -->
-                      burger id {{o.myid1}}
+                      {{o.menu.name}} - {{o.boisson1.name}} - {{o.boisson2.name}} - {{o.accomp.name}} - <span *ngFor="let p of o.sauce">{{p.name}} - </span> 
+                      - {{o.promo.name}}
                   </div>
                       </div>
               </div>
