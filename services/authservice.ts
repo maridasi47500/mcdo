@@ -159,10 +159,10 @@ async ngOnInit(){
     get getOrdered() {
         return this.storage.get("ordered") ? true : false;
     }
-    getOrder() {
+    async getOrder() {
         return this.storage.get("macommande") ? true : false;
     }
-    setOrder(order) {
+    async setOrder(order) {
         console.log("content order:")
         console.log(order);
         console.log("ORDER OBJhere");
@@ -222,7 +222,7 @@ try{
                                         }catch(e){console.log(e.stack)};*/
 
          console.log("my order sql AVANT database query", order,this.myitem);
-         this.db.myhash(this.myitem);
+         await this.db.myhash(this.myitem);
          //this.db.myhash(order);
          console.log("my order sql database query", order,this.myitem);
         }catch(e){

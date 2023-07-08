@@ -1,1 +1,10 @@
-<ion-content class="ion-padding">Le menu à l'intérieur</ion-content>
+<ion-content class="ion-padding">
+    <div *ngFor="let item of listitems">
+        {{item.name}}
+        <div *ngIf="item.boisson1" class="boisson1">
+            {{item.boisson1.name}} - 
+            {{item.boisson1.prix}}
+        </div>
+    </div>
+    
+</ion-content>

@@ -126,7 +126,7 @@ console.log('hgrt kdghl');
       //this.othermodal.ngOnDestroy();
     }
   }
-alleraupanier1($evt) {
+async alleraupanier1($evt) {
     //alert('ondestroy modal ');
     console.log("aller à panier");
     var myinput;
@@ -171,7 +171,7 @@ this.cancelPanier();
 //    } else {
 //    }
 
-this.auth.setOrder(myorder);
+await this.auth.setOrder(myorder);
    alert("ok finish trier order")
     this.myrouter.navigate(["/panierv2"]);
     console.log("ok navigate");

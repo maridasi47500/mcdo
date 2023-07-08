@@ -23,7 +23,7 @@ import { PopovermenuPage } from '../popovermenu/popovermenu.page';
   templateUrl: './basketv2.page.html',
   styleUrls: ['./basketv2.page.scss'],
 })
-export class Basketv2Page implements OnInit {
+export class Basketv2Page implements OnInit,OnDestroy {
   @ViewChild('accordionGroup', { static: true }) accordionGroup: IonAccordionGroup;
 private myid;
 private menuprix:any;
@@ -141,13 +141,22 @@ myvalidemail=false;
 loggedin=false;
 ordered=false;
 myorder;
+private _mycommande: Subscription;
+private _extrachicken_o: Subscription;
+listitems;
+
+ngOnDestroy() {
+    this._mycommande.unsubscribe();
+
+    
+}
   ngOnInit() {
       console.log("on init bazsket v2")
       try {
                   this._dbobservable = this.authService.getServiceState().subscribe((res) => {
       if(res){
       console.log(res);
-        this.authService.loggedIn$.subscribe(x=>{
+        /*this.authService.loggedIn$.subscribe(x=>{
             this.loggedin = x;
             });
         this.authService.ordered$.subscribe(x=>{
@@ -163,7 +172,26 @@ myorder;
             console.log("MA commande : list : ", x)
             this.myorder = x;
                
-            });
+            });*/
+                    this._mycommande=this.db.macommandestorage$.subscribe(x=>{
+            this.listitems=x;
+        });
+
+            var x = async () => {
+            this.ordered=await this.storage.get("ordered");
+            if (!this.ordered){
+                //alert("Mal!vous avez mal commandé le repas!")
+                console.log("Mal!vous avez mal commandé le repas!")
+
+                this.myrouter.navigate(["/produitv2"]);
+            }else{
+                //alert("Bravo!vous avez bien commandé le repas!")
+                console.log("Bravo!vous avez bien commandé le repas!")
+                this.listitems=await this.storage.get("macommande");
+            }
+
+            }
+            x();
         
         console.log("is looged in",this.ordered,this.loggedin)
 

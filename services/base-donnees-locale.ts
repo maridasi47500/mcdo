@@ -47,6 +47,9 @@ promotiondessert$: Observable<Menuitem[]> = of([]);
 extrasauce$: Observable<Menuitem[]> = of([]);
 promotionpdt$: Observable<Menuitem[]> = of([]);
 */
+
+  private macommandestorage = new BehaviorSubject([]);
+        macommandestorage$ = this.macommandestorage.asObservable();
   private boisson = new BehaviorSubject(this.arrmenuitem);
         boissons$ = this.boisson.asObservable();
   private boisson1 = new BehaviorSubject(this.arrmenuitem);
@@ -257,7 +260,7 @@ thishash;
     try{
         myvalues=JSON.parse(hash["sauce"]).map(x=>x[0])
     
-    res=await this.storage.executeSql("select * from menuitems where id in(?)", myvalues);
+    res=await this.storage.executeSql("select * from menuitems where id in(?)", [myvalues]);
 
         //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
          items=[];
@@ -285,7 +288,7 @@ thishash;
      try{
         myvalues=JSON.parse(hash["extrasauce"]).map(x=>x[0])
    
-       res=await this.storage.executeSql("select * from menuitems where id in(?)", myvalues);
+       res=await this.storage.executeSql("select * from menuitems where id in(?)", [myvalues]);
     
         //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         let items=[];
@@ -337,6 +340,7 @@ thishash;
  }
  alert(res+ "tous les lenu items"+JSON.stringify(hash));
     
+    
     }catch(e){
         myvalues="0";
     }
@@ -344,12 +348,12 @@ thishash;
      try{
         myvalues=JSON.parse(hash["boisson2"]);
    
-     res=await this.storage.executeSql("select * from menuitems where id in(?)", myvalues);
+     res=await this.storage.executeSql("select * from menuitems where id in(?)", [myvalues]);
         //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         items=[];
  if (res.rows.length > 0) {
- let items: Menuitem[] = [];
-      if (res.rows.length > 0) {
+  items= [];
+        if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
          items.push({ 
             id: res.rows.item(i).id,
@@ -367,16 +371,99 @@ thishash;
         myvalues="0";
     }
         console.log("hash apres requete 4", hash);
-     //this.authservice.myitem=hash;
+         console.log("hash apres requete 2", hash);
+    try{
+        myvalues=JSON.parse(hash["boisson1"]);
+    
+    res=await this.storage.executeSql("select * from menuitems where id = ?", [myvalues]);
+    
+        alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        items=[];
+ if (res.rows.length > 0) {
+  items= [];
+        if (res.rows.length > 0) {
+          alert(String(res.rows.length)+"cocalight");
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      hash["boisson1"]=items[0];
+      
+ }
+ alert(res+ "tous les lenu items"+JSON.stringify(hash));
+    
+    
+    }catch(e){
+        myvalues="0";
     }
+     console.log("hash apres requete 5", hash);
+      let myitems: Menu[] = [];
+    try{
+        myvalues=JSON.parse(hash["myid1"]);
+    
+    res=await this.storage.executeSql("select * from menus where id = ?", [myvalues]);
+    
+        alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        items=[];
+ if (res.rows.length > 0) {
+  myitems= [];
+        if (res.rows.length > 0) {
+          alert(String(res.rows.length)+"cocalight");
+        for (var i = 0; i < res.rows.length; i++) { 
+         myitems.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            description: res.rows.item(i).description,
+            myorder: res.rows.item(i).myorder,
+            cat_id: res.rows.item(i).cat_id,
+            url: res.rows.item(i).url,
+            prix: res.rows.item(i).prix,
+            type: res.rows.item(i).type
+           });
+        }
+      }
+      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      hash["name"]=myitems[0].name;
+      hash["image"]=myitems[0].image;
+      
+ }
+ alert(res+ "tous les lenu items"+JSON.stringify(hash));
+    
+    
+    }catch(e){
+        myvalues="0";
+    }
+     //this.authservice.myitem=hash;
+     var myst=[];
+     myst= await this.mystorage.get('macommande');
+     if (!myst){
+        myst=[];
+     }
+     myst.push(hash);
+     this.mystorage.set("macommande",myst);
+      this.macommandestorage.next(myst);
+         }
     var y = async() =>{
     await x();
     }
     var yy=await y();
     alert("value au départ"+String(hash));
       }catch(e){
+          console.log(e,e.stack)
           alert(e.stack)
       }
+      
+      //store in storage add to my order
+      
+      
 }
  listsaucesFilled(array){
 const observer = async() => {
@@ -1147,7 +1234,8 @@ const observer = async() => {
     private platform: Platform, 
     private sqlite: SQLite, 
     private httpClient: HttpClient,
-    private sqlPorter: SQLitePorter
+    private sqlPorter: SQLitePorter,
+    private mystorage: Storage
   ) {
       
       
