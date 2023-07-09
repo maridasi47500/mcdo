@@ -119,7 +119,8 @@ INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALU
 INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (2, 'Menu de restes de poulet croustillant','110.00','4 morceaux de poulet croustillant extra burger + 1 morceau de grosse pomme de terre + 2 morceaux de boisson de taille moyenne','happymeal1', '/assets/images/happymeal.jpg',2,'service de forfait',1);
 INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (3, 'Menu BigMaç','160.00','2 Big Mac® + 4 morceaux de poulet McNuggets + 1 pomme de terre moyenne + 1 litre de boisson','happymeal', '/assets/images/happymeal.jpg',1,'restaurant',0);
 INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (4, 'Menu de restes de poulet croustillant','110.00','4 morceaux de poulet croustillant extra burger + 1 morceau de grosse pomme de terre + 2 morceaux de boisson de taille moyenne','happymeal2', '/assets/images/happymeal.jpg',2,'restaurant',0);
-
+INSERT INTO menus(id, name,prix,description, url,image,cat_id,type,myorder) VALUES (5, 'Menu Opportunité Double
+Daba Burger',215.00,'2 Daba Daba Burger +1 Grosse Pomme de Terre +1 L. Boisson + Oignon Croustillant','happymeal3', '/assets/images/WEB3_1077.jpg',2,'service de forfait',1);
 INSERT INTO menuitems(name,prix,type,image) VALUES ("coca", 30.00,"boisson","");
 INSERT INTO menuitems(name,prix,type,image) VALUES ("sprite", 30.00,"boisson","");
 
