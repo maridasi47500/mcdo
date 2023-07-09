@@ -187,7 +187,7 @@ ngOnDestroy() {
             }else{
                 //alert("Bravo!vous avez bien commandé le repas!")
                 console.log("Bravo!vous avez bien commandé le repas!")
-                this.listitems=await this.storage.get("macommande");
+                this.listitems=await this.storage.get("macommandeOK");
             }
 
             }

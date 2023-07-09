@@ -1,9 +1,50 @@
 <ion-content class="ion-padding">
-    <div *ngFor="let item of listitems">
+   <div *ngFor="let item of listitems">
         {{item.name}}
         <div *ngIf="item.boisson1" class="boisson1">
+            Boisson 1 : 
             {{item.boisson1.name}} - 
             {{item.boisson1.prix}}
+        </div>
+         <div *ngIf="item.boisson2" class="boisson2">
+             Boisson 2 : 
+            {{item.boisson2.name}} - 
+            {{item.boisson2.prix}}
+        </div>
+         <div *ngIf="item.accomp" class="accomp">
+             Accompagnement : 
+            {{item.accomp.name}} - 
+            {{item.accomp.prix}}
+        </div>
+         <div *ngIf="item.sauce" class="sauce">
+             Sauce : 
+             <div *ngFor="let sauce of item.sauce">
+                 {{sauce.nb}} x {{sauce.name}}
+                 
+             </div>
+        </div>
+         <div *ngIf="item.promo" class="promo">
+             Promotion : 
+            {{item.promo.name}} - 
+            {{item.promo.prix}}
+        </div>
+         <div *ngIf="item.promodessert" class="promodessert">
+             Promotion dessert : 
+            {{item.promodessert.name}} - 
+            {{item.promodessert.prix}}
+        </div>
+         <div *ngIf="item.extrasauce" class="extrasauce">
+             Extra sauce : 
+             <div *ngFor="let sauce of item.extrasauce">
+                 {{sauce.nb}} x {{sauce.name}}
+                 
+             </div>
+        </div>
+         <div *ngIf="item.viandesup === 'true'" class="viandesup">
+             + Viande supplémentaire
+        </div>
+         <div *ngIf="item.extrachicken === 'true'" class="extrachicken">
+             + Poulet supplémentaire
         </div>
     </div>
     

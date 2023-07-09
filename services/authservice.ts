@@ -114,7 +114,7 @@ async ngOnInit(){
             this.storage.set('macommande', this.myitem);
         });
         this._boisson2_o=this.db.boisson2$.subscribe(x=>{
-        alert(JSON.stringify(x));
+        //alert(JSON.stringify(x));
             this.myitem["boisson2"] = x[0];
             this.storage.set('macommande', this.myitem); // store session data
         });

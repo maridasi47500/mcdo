@@ -157,7 +157,7 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
       const observer = async() => {
           var x = await (this.storage.executeSql("select * from users where email = ? limit 1", [email])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: User[]=[];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -172,7 +172,7 @@ promotionpdt$: Observable<Menuitem[]> = of([]);
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.user.next(items[0]);
     }));
 }
@@ -185,10 +185,10 @@ const observer = async() => {
           
           var x = await (this.storage.executeSql("select * from menuitems where type = ? and id = ?", [typename, value])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         let items=[];
  if (res.rows.length > 0) {
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       for (var i = 0; i < res.rows.length; i++) {
           console.log("prix:", res.rows.item(0).prix)
           console.log("ID:", res.rows.item(0).id)
@@ -230,10 +230,10 @@ const observer = async() => {
             }
           var x = await (this.storage.executeSql("select * from menuitems where id in ("+myidssql+")", myids)
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         let items=[];
  if (res.rows.length > 0) {
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       for (var i = 0; i < res.rows.length; i++) {
           console.log("prix:", res.rows.item(0).prix)
           console.log("ID:", res.rows.item(0).id)
@@ -257,152 +257,20 @@ thishash;
     var myvalues,res;
      let items: Menuitem[] = [];
 
-    try{
-        myvalues=JSON.parse(hash["sauce"]).map(x=>x[0])
     
-    res=await this.storage.executeSql("select * from menuitems where id in(?)", [myvalues]);
-
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
-         items=[];
- if (res.rows.length > 0) {
-     alert(res.rows.length);
-      if (res.rows.length > 0) {
-        for (var i = 0; i < res.rows.length; i++) { 
-         items.push({ 
-            id: res.rows.item(i).id,
-            name: res.rows.item(i).name,  
-            image: res.rows.item(i).image,
-            prix: res.rows.item(i).image,
-            type: res.rows.item(i).description
-           });
-        }
-      }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
-      hash["sauce"] = items;
- }
-    
-    }catch(e){
-        myvalues="0";
-    }
     console.log("hash apres requete 1", hash);
-     try{
-        myvalues=JSON.parse(hash["extrasauce"]).map(x=>x[0])
-   
-       res=await this.storage.executeSql("select * from menuitems where id in(?)", [myvalues]);
     
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
-        let items=[];
- if (res.rows.length > 0) {
-  items= [];
-      if (res.rows.length > 0) {
-        for (var i = 0; i < res.rows.length; i++) { 
-         items.push({ 
-            id: res.rows.item(i).id,
-            name: res.rows.item(i).name,  
-            image: res.rows.item(i).image,
-            prix: res.rows.item(i).image,
-            type: res.rows.item(i).description
-           });
-        }
-      }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
-      hash["extrasauce"]=items;
- }
+    hash["sauce"]= await this.thisismyfuncs(hash["sauce"]);
+    hash["extrasauce"]= await this.thisismyfuncs(hash["extrasauce"]);
     
-     }catch(e){
-        myvalues="0";
-    }
         console.log("hash apres requete 2", hash);
-    try{
-        myvalues=JSON.parse(hash["boisson1"]);
-    
-    res=await this.storage.executeSql("select * from menuitems where id = ?", [myvalues]);
-    
-        alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
-        items=[];
- if (res.rows.length > 0) {
- let items: Menuitem[] = [];
-      if (res.rows.length > 0) {
-          alert(String(res.rows.length)+"cocalight");
-        for (var i = 0; i < res.rows.length; i++) { 
-         items.push({ 
-            id: res.rows.item(i).id,
-            name: res.rows.item(i).name,  
-            image: res.rows.item(i).image,
-            prix: res.rows.item(i).image,
-            type: res.rows.item(i).description
-           });
-        }
-      }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
-      hash["boisson1"]=items[0];
-      
- }
- alert(res+ "tous les lenu items"+JSON.stringify(hash));
-    
-    
-    }catch(e){
-        myvalues="0";
-    }
-        console.log("hash apres requete 3", hash);
-     try{
-        myvalues=JSON.parse(hash["boisson2"]);
    
-     res=await this.storage.executeSql("select * from menuitems where id in(?)", [myvalues]);
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
-        items=[];
- if (res.rows.length > 0) {
-  items= [];
-        if (res.rows.length > 0) {
-        for (var i = 0; i < res.rows.length; i++) { 
-         items.push({ 
-            id: res.rows.item(i).id,
-            name: res.rows.item(i).name,  
-            image: res.rows.item(i).image,
-            prix: res.rows.item(i).image,
-            type: res.rows.item(i).description
-           });
-        }
-      }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
-      hash["boisson2"]=items[0];
- }
-     }catch(e){
-        myvalues="0";
-    }
+        console.log("hash apres requete 3", hash);
+     hash["boisson2"]= await this.thisismyfunc(hash["boisson2"]);
         console.log("hash apres requete 4", hash);
          console.log("hash apres requete 2", hash);
-    try{
-        myvalues=JSON.parse(hash["boisson1"]);
+    hash["boisson1"]= await this.thisismyfunc(hash["boisson1"]);
     
-    res=await this.storage.executeSql("select * from menuitems where id = ?", [myvalues]);
-    
-        alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
-        items=[];
- if (res.rows.length > 0) {
-  items= [];
-        if (res.rows.length > 0) {
-          alert(String(res.rows.length)+"cocalight");
-        for (var i = 0; i < res.rows.length; i++) { 
-         items.push({ 
-            id: res.rows.item(i).id,
-            name: res.rows.item(i).name,  
-            image: res.rows.item(i).image,
-            prix: res.rows.item(i).image,
-            type: res.rows.item(i).description
-           });
-        }
-      }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
-      hash["boisson1"]=items[0];
-      
- }
- alert(res+ "tous les lenu items"+JSON.stringify(hash));
-    
-    
-    }catch(e){
-        myvalues="0";
-    }
      console.log("hash apres requete 5", hash);
       let myitems: Menu[] = [];
     try{
@@ -410,12 +278,12 @@ thishash;
     
     res=await this.storage.executeSql("select * from menus where id = ?", [myvalues]);
     
-        alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         items=[];
  if (res.rows.length > 0) {
   myitems= [];
         if (res.rows.length > 0) {
-          alert(String(res.rows.length)+"cocalight");
+          console.log(String(res.rows.length)+"cocalight");
         for (var i = 0; i < res.rows.length; i++) { 
          myitems.push({ 
             id: res.rows.item(i).id,
@@ -430,17 +298,22 @@ thishash;
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       hash["name"]=myitems[0].name;
       hash["image"]=myitems[0].image;
       
  }
- alert(res+ "tous les lenu items"+JSON.stringify(hash));
+ //console.log(res+ "tous les lenu items"+JSON.stringify(hash));
     
     
     }catch(e){
         myvalues="0";
     }
+    hash["accomp"]= await this.thisismyfunc(hash["accomp"]);
+    hash["promo"]= await this.thisismyfunc(hash["promo"]);
+    hash["promodessert"]= await this.thisismyfunc(hash["promodessert"]);
+    hash["accomp"]= await this.thisismyfunc(hash["accomp"]);
+    
      //this.authservice.myitem=hash;
      var myst=[];
      myst= await this.mystorage.get('macommande');
@@ -448,17 +321,17 @@ thishash;
         myst=[];
      }
      myst.push(hash);
-     this.mystorage.set("macommande",myst);
+     this.mystorage.set("macommandeOK",myst);
       this.macommandestorage.next(myst);
          }
     var y = async() =>{
     await x();
     }
     var yy=await y();
-    alert("value au départ"+String(hash));
+    //console.log("value au départ"+String(hash));
       }catch(e){
           console.log(e,e.stack)
-          alert(e.stack)
+          //console.log(e.stack)
       }
       
       //store in storage add to my order
@@ -486,10 +359,10 @@ const observer = async() => {
             }
           var x = await (this.storage.executeSql("select * from menuitems where id in ("+myidssql+")", myids)
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         let items=[];
  if (res.rows.length > 0) {
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       for (var i = 0; i < res.rows.length; i++) {
           console.log("prix:", res.rows.item(0).prix)
           console.log("ID:", res.rows.item(0).id)
@@ -505,6 +378,82 @@ const observer = async() => {
     observer()
     return this.mylistsauceFilled$;
 }
+async thisismyfuncs(myvalues1){
+ try{
+     var res, hash,myvalues,nb;
+     var mystr=myvalues1.replaceAll("'","\"");
+        myvalues=JSON.parse(mystr).map(x=>x[0])
+        nb=JSON.parse(mystr).map(x=>x[1])
+        var sql="",paspremier=false;
+   for (var i = 0;i<myvalues.length;i++){
+       if (paspremier){
+           sql+=",";
+       }
+       sql+="?";
+       paspremier=true;
+   }
+       res=await this.storage.executeSql("select * from menuitems where id in("+sql+")", myvalues);
+    
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        let items=[];
+ if (res.rows.length > 0) {
+  items= [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description,
+            nb: nb[i]
+           });
+        }
+      }
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      return items;
+ }
+    
+     }catch(e){
+         console.log("erreur list items",e);
+        return null;
+    }
+}
+async thisismyfunc(myvalues){
+try{
+    var res, items, hash;
+        myvalues=JSON.parse(myvalues);
+    
+    res=await this.storage.executeSql("select * from menuitems where id = ?", [myvalues]);
+    
+        console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        items=[];
+ if (res.rows.length > 0) {
+  items= [];
+        if (res.rows.length > 0) {
+          console.log(String(res.rows.length)+"cocalight");
+        for (var i = 0; i < res.rows.length; i++) { 
+         items.push({ 
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,  
+            image: res.rows.item(i).image,
+            prix: res.rows.item(i).image,
+            type: res.rows.item(i).description
+           });
+        }
+      }
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      return items[0];
+      
+ }
+ console.log(res+ "tous les lenu items"+JSON.stringify(hash));
+    
+    
+    }catch(e){
+        return null;
+    }
+}
+
  listextrasauces(array){
 const observer = async() => {
             var myids=array.map(x=>x[0]);
@@ -526,10 +475,10 @@ const observer = async() => {
             }
           var x = await (this.storage.executeSql("select * from menuitems where id in ("+myidssql+")", myids)
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         let items=[];
  if (res.rows.length > 0) {
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       for (var i = 0; i < res.rows.length; i++) {
           console.log("prix:", res.rows.item(0).prix)
           console.log("ID:", res.rows.item(0).id)
@@ -566,10 +515,10 @@ const observer = async() => {
             }
           var x = await (this.storage.executeSql("select * from menuitems where id in ("+myidssql+")", myids)
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         let items=[];
  if (res.rows.length > 0) {
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       for (var i = 0; i < res.rows.length; i++) {
           console.log("prix:", res.rows.item(0).prix)
           console.log("ID:", res.rows.item(0).id)
@@ -606,10 +555,10 @@ const observer = async() => {
             }
           var x = await (this.storage.executeSql("select * from menuitems where type = ? and id in ("+myidssql+")", [typename].concat(myids))
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
         let items=[];
  if (res.rows.length > 0) {
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       for (var i = 0; i < res.rows.length; i++) {
           console.log("prix:", res.rows.item(0).prix)
           console.log("ID:", res.rows.item(0).id)
@@ -634,7 +583,7 @@ console.log(sumWithInitial+":: sum")
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", [typename])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -647,7 +596,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.menuitem.next(items);
     }));
 }
@@ -658,7 +607,7 @@ getsauce(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -671,7 +620,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.sauce.next(items);
     }));
 }
@@ -682,7 +631,7 @@ getallmenus(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menus", [])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menu;
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -699,7 +648,7 @@ const observer = async() => {
            };
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.menu.next(items);
     }));
 }
@@ -708,7 +657,7 @@ createuser(emailcommercial,email,mdp,nom,tel){
 const observer = async() => {
           var x = await (this.storage.executeSql("insert into users (emailcommercial,email,mdp,nom,tel) values (?,?,?,?,?)", [emailcommercial,email,mdp,nom,tel])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
   this.getUsers(email);
       
     }));
@@ -743,7 +692,7 @@ getallusersbyemail(email){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from users where email = ?", [email])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: User[]= [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -758,7 +707,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.users.next(items);
     }));
 }
@@ -769,7 +718,7 @@ getallusers(email,mdp){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from users where email = ? and mdp = ?", [email,mdp])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: User[]=[];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -785,7 +734,7 @@ const observer = async() => {
         }
       }
       console.log(items, email,mdp)
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.users.next(items);
     }));
 }
@@ -796,7 +745,7 @@ getmenu(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menus where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menu;
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -813,7 +762,7 @@ const observer = async() => {
            };
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.menu.next(items);
     }));
 }
@@ -824,7 +773,7 @@ getsauces(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["sauce"])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -837,7 +786,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.sauce.next(items);
     }));
 }
@@ -848,7 +797,7 @@ getextrasauce(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -861,7 +810,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.extrasauce.next(items);
     }));
 }
@@ -872,7 +821,7 @@ getextrasauces(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["extra sauces"])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -885,7 +834,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.extrasauce.next(items);
     }));
 }
@@ -896,7 +845,7 @@ getaccompagnement(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -909,7 +858,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.accompagnement.next(items);
     }));
 }
@@ -920,7 +869,7 @@ getaccompagnements(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["accompagnement"])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -933,7 +882,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.accompagnement.next(items);
     }));
 }
@@ -944,7 +893,7 @@ getpromotion(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -957,7 +906,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.promotion.next(items);
     }));
 }
@@ -968,7 +917,7 @@ getpromotions(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["promotion"])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -981,7 +930,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.promotion.next(items);
     }));
 }
@@ -992,7 +941,7 @@ getpromotiondessert(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1005,7 +954,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.promotiondessert.next(items);
     }));
 }
@@ -1016,7 +965,7 @@ getpromotiondesserts(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["promotion dessert"])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1029,7 +978,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.promotiondessert.next(items);
     }));
 }
@@ -1040,7 +989,7 @@ getboisson1(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1054,7 +1003,7 @@ const observer = async() => {
         }
       }
       console.log(items);
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.boisson1.next(items);
     }));
 }
@@ -1065,7 +1014,7 @@ getboisson2(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1078,7 +1027,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.boisson2.next(items);
     }));
 }
@@ -1089,7 +1038,7 @@ getboisson(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1102,7 +1051,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.boisson.next(items);
     }));
 }
@@ -1114,7 +1063,7 @@ getboissons(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["boisson"])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1127,7 +1076,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.boisson.next(items);
     }));
 }
@@ -1138,7 +1087,7 @@ get1promotionpdt(id){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where id = ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1151,7 +1100,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.promotionpdt.next(items);
     }));
 }
@@ -1162,7 +1111,7 @@ getpromotionpdt(){
 const observer = async() => {
           var x = await (this.storage.executeSql("select * from menuitems where type = ?", ["promotion pommes de terre"])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Menuitem[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1175,7 +1124,7 @@ const observer = async() => {
            });
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.promotionpdt.next(items);
     }));
 }
@@ -1188,7 +1137,7 @@ const observer = async() => {
        
           var x = await (this.storage.executeSql("select items.*, flavors.url as myurl,flavors.id as myid FROM items left join flavors on flavors.id = items.cat_id group by items.id having myurl like ?", [id])
     .then(res => {
-        //alert(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
+        //console.log(JSON.stringify(res)+ JSON.stringify((res.rows.item(0))));
     let items: Item[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) { 
@@ -1204,7 +1153,7 @@ const observer = async() => {
           
         }
       }
-      //alert(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
+      //console.log(JSON.stringify(res)+JSON.stringify(items)+ JSON.stringify((res.rows.item(0))));
       this.itemsCatList.next(items);
         
 
@@ -1396,7 +1345,7 @@ this.createDatabaseObject()
         'assets/dump.sql', 
         {responseType: 'text'}
       ).subscribe(data => {
-          //alert("this data"+data)
+          //console.log("this data"+data)
         this.sqlPorter.importSqlToDb(this.storage, data)
           .then(_ => {
 this.storage['database_filled'] = true;

@@ -171,8 +171,8 @@ this.cancelPanier();
 //    } else {
 //    }
 
-await this.auth.setOrder(myorder);
-   alert("ok finish trier order")
+    await this.auth.setOrder(myorder);
+   console.log("ok finish trier order")
     this.myrouter.navigate(["/panierv2"]);
     console.log("ok navigate");
     //document.getElementById('basketv2').click();
